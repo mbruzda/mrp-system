@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Oskar\\Desktop\\mrp-system\\API-ERP\\API-ERP.csproj": {}
+    "C:\\Users\\Olek\\Desktop\\ERP Projekt\\mrp-system\\API-ERP\\API-ERP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Oskar\\Desktop\\mrp-system\\API-ERP\\API-ERP.csproj": {
+    "C:\\Users\\Olek\\Desktop\\ERP Projekt\\mrp-system\\API-ERP\\API-ERP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Oskar\\Desktop\\mrp-system\\API-ERP\\API-ERP.csproj",
+        "projectUniqueName": "C:\\Users\\Olek\\Desktop\\ERP Projekt\\mrp-system\\API-ERP\\API-ERP.csproj",
         "projectName": "API-ERP",
-        "projectPath": "C:\\Users\\Oskar\\Desktop\\mrp-system\\API-ERP\\API-ERP.csproj",
-        "packagesPath": "C:\\Users\\Oskar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Oskar\\Desktop\\mrp-system\\API-ERP\\obj\\",
+        "projectPath": "C:\\Users\\Olek\\Desktop\\ERP Projekt\\mrp-system\\API-ERP\\API-ERP.csproj",
+        "packagesPath": "C:\\Users\\Olek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Olek\\Desktop\\ERP Projekt\\mrp-system\\API-ERP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Olek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -67,6 +66,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.1, 6.0.1]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -75,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
