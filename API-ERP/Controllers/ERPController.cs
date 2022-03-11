@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API_ERP;
 using System.Text.Json;
-using System.Web.Http.Cors;
 
 namespace API_ERP.Controllers
 {
@@ -10,13 +9,14 @@ namespace API_ERP.Controllers
     [ApiController]
     public class ERPController : ControllerBase
     {
-        [HttpPost("GetERPTable")]
+        private IERP _ghp = new GHP();
+
+        [HttpPost(Name = "GetERPTable")]
         public string Post([FromBody] string jsonString)
         {
-            var ghp = new GHP();
-            ghp.SetDataFromJson(jsonString);
-            ghp.FillTable();
-            return ghp.DataToJson();
+            _ghp.SetDataFromJson(jsonString);
+            _ghp.FillTable();
+            return _ghp.DataToJson();
 
         }
 

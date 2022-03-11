@@ -29,7 +29,7 @@ namespace API_ERP
             }
         }
 
-        public String DataToJson()
+        public string DataToJson()
         {
             return JsonConvert.SerializeObject(this.Data);
         }
