@@ -21,7 +21,7 @@ jobs:
       - name: build docker image
         run: |
           cd API-ERP
-          docker build -t mrp-api:latest .
+          docker build -t mrocin/mrp-api:latest .
       - name: push docker image to dockerhub
         run: |
           docker push mrocin/mrp-api
