@@ -6,6 +6,6 @@ namespace API_ERP
     {
         void SetDataFromJson(string jsonString);
         void FillTable();
-        String DataToJson();
+        string DataToJson();
     }
 }
