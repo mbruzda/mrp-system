@@ -9,7 +9,7 @@ namespace API_ERP.Controllers
     [ApiController]
     public class ERPController : ControllerBase
     {
-        [HttpPost(Name = "GetERPTable")]
+        [HttpPost("GetERPTable")]
         public string Post([FromBody] string jsonString)
         {
             var ghp = new GHP();
