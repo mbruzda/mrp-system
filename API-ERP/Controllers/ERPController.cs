@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using API_ERP;
 using System.Text.Json;
+using System.Web.Http.Cors;
 
 namespace API_ERP.Controllers
 {
     [Route("api")]
     [ApiController]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ERPController : ControllerBase
     {
         [HttpPost("GetERPTable")]
