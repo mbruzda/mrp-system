@@ -11,7 +11,7 @@ namespace API_ERP.Controllers
     {
         private IERP _ghp = new GHP();
 
-        [HttpPost(Name = "GetERPTable")]
+        [HttpPost("GetERPTable")]
         public string Post([FromBody] string jsonString)
         {
             _ghp.SetDataFromJson(jsonString);
