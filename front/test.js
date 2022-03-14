@@ -4,6 +4,7 @@ const data = JSON.stringify({
     name: 'Roger',
     age: 8
   })
+
   var result
   var text = "{'salesForecast':[0,0,0,0,20,0,40,0,0,0],'production':[0,0,0,0,28,0,30,0,0,0],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':1,'startingInventory':2}";
 
@@ -28,3 +29,4 @@ const data = JSON.stringify({
     console.log(result.SalesForecast)
   }
   
+
