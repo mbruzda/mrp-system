@@ -1,6 +1,6 @@
 ﻿namespace API_ERP
 {
-    public class GHPData
+    public class GHPDataModel
     {
         public List<int> SalesForecast { get; set; }
         public List<int> Production { get; set; }
