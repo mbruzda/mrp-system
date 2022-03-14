@@ -4,24 +4,28 @@ namespace API_ERP
 {
     public class GHP : IERP
     {
-        public GHPDataModel Data;
+        public GHPDataModel _Data;
+
+        public GHP()
+        {
+            _Data = new GHPDataModel();
+        }
 
         public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0)
         {
-            var GHPData = JsonConvert.DeserializeObject<GHPDataModel>(jsonString);
-            if (!GHPData.SalesForecast.Any()) throw new Exception("Error parsing the table");
-            this.Data = GHPData;
+            var Data = JsonConvert.DeserializeObject<GHPDataModel>(jsonString);
+            _Data = Data;
         }
 
         public void FillTable()
         {
-            this.Data.Inventory[0] = this.Data.StartingInventory;
-            for (int i = 1; i < 10; i++) this.Data.Inventory[i] = this.Data.Inventory[i - 1] - this.Data.SalesForecast[i] + this.Data.Production[i];
+            _Data.Inventory[0] = _Data.StartingInventory;
+            for (int i = 1; i < 10; i++) _Data.Inventory[i] = _Data.Inventory[i - 1] - _Data.SalesForecast[i] + _Data.Production[i];
         }
 
         public string DataToJson()
         {
-            return JsonConvert.SerializeObject(this.Data);
+            return JsonConvert.SerializeObject(_Data);
         }
     }
 }

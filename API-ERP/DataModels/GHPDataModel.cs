@@ -2,10 +2,10 @@
 {
     public class GHPDataModel
     {
-        public List<int> SalesForecast { get; set; }
-        public List<int> Production { get; set; }
-        public List<int> Inventory { get; set; }
-        public int RealizationTime { get; set; }
-        public int StartingInventory { get; set; }
+        public int[] SalesForecast { get; set; } = new int[10];
+        public int[] Production { get; set; } = new int[10];
+        public int[] Inventory { get; set; } = new int[10];
+        public int RealizationTime { get; set; } = 0;
+        public int StartingInventory { get; set; } =0;
     }   
 }
