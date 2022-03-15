@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using API_ERP.DataModels;
+using Newtonsoft.Json;
 
 namespace API_ERP
 {

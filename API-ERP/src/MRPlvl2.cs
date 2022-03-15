@@ -1,4 +1,6 @@
-﻿
+﻿using API_ERP.DataModels;
+using Newtonsoft.Json;
+
 namespace API_ERP
 {
     public class MRPlvl2 : IERP
@@ -16,7 +18,7 @@ namespace API_ERP
 
         public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0)
         {
-            var MRPData = JsonConvert.DeserializeObject<GHPDataModel>(jsonString);
+            var MRPData = JsonConvert.DeserializeObject<MRPDataModel>(jsonString);
             _MRPDatalvl1 = MRPData;
             _MRPDatalvl1.RealizationTime = RT;
             _MRPDatalvl1.LotSize = LS;
@@ -27,7 +29,7 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
-            for (int i = _MRPlvl1.RealizationTime; i < 10; i++) _MRPDatalvl2.GrossRequirements[i] = _MRPDatalvl1.PlannedReceipt[i] * _multiplier;
+            for (int i = _MRPDatalvl1.RealizationTime; i < 10; i++) _MRPDatalvl2.GrossRequirements[i] = _MRPDatalvl1.PlannedReceipt[i] * _multiplier;
             //ProjectedOnHand
             _MRPDatalvl2.ProjectedOnHand[0] = _MRPDatalvl2.StartingInventory; for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i];
 
@@ -77,4 +79,4 @@ namespace API_ERP
     }
 
 }
-}
+
