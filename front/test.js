@@ -46,7 +46,7 @@ function sendData(){
   
   })
   
-  xhr.open('POST', 'https://localhost:44362/api/GetGHPTable', true)
+  xhr.open('POST', 'http://localhost:5000/api/GetGHPTable', true)
   xhr.setRequestHeader('content-type', 'application/json')
   xhr.withCredentials = false;
 
