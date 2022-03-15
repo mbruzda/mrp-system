@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using API_ERP.DataModels;
+using Newtonsoft.Json;
 
 namespace API_ERP
 {
@@ -19,7 +20,7 @@ namespace API_ERP
 
         public void FillTable()
         {
-            _Data.Inventory[0] = _Data.StartingInventory;
+            _Data.Inventory[0] = _Data.StartingInventory - _Data.SalesForecast[0];
             for (int i = 1; i < 10; i++) _Data.Inventory[i] = _Data.Inventory[i - 1] - _Data.SalesForecast[i] + _Data.Production[i];
         }
 
