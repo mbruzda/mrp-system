@@ -16,17 +16,33 @@ namespace API_ERP.Controllers
         [HttpPost("GetGHPTable")]
         public string PostGHP([FromBody] string jsonString)
         {
-            _ghp.SetDataFromJson(jsonString);
-            _ghp.FillTable();
-            return _ghp.DataToJson();
+            try
+            {
+                _ghp.SetDataFromJson(jsonString);
+                _ghp.FillTable();
+                return _ghp.DataToJson();
+            }
+            catch (Exception ex)
+            {
+                return "Error:" + ex;
+            }
         }
 
         [HttpPost("GetMRPlvl1Table/{RT}/{LS}/{BOM}/{SI}")]
         public string PostMRPlvl1([FromBody] string jsonString,int RT,int LS, int BOM, int SI)
         {
-            _mrplvl1.SetDataFromJson(jsonString, RT, LS, BOM, SI);
-            _mrplvl1.FillTable();
-            return _mrplvl1.DataToJson();
+            try
+            {
+                _mrplvl1.SetDataFromJson(jsonString, RT, LS, BOM, SI);
+                _mrplvl1.FillTable();
+                return _mrplvl1.DataToJson();
+            }
+            catch (Exception ex)
+            {
+                return "Error:" + ex;
+            }
+
+
         }
 
         [HttpPost("Ping")]

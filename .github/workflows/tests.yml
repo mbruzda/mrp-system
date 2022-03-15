@@ -1,0 +1,9 @@
+name: Tu beda testy jak arek zrobi
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "tu powinny byc testy"

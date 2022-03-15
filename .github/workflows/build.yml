@@ -1,0 +1,22 @@
+name: Build and push docker image
+
+on: [push, pull_request]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKER_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+      - name: build docker image
+        run: |
+          cd API-ERP
+          docker build -t mrocin/mrp-api:latest .
+      - name: push docker image to dockerhub
+        run: |
+          docker push mrocin/mrp-api
