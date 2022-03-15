@@ -1,13 +1,169 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <script src="test.js"></script>
+
     <title>Document</title>
+
+    <style>
+        table {
+
+            border-collapse: collapse;
+
+        }
+
+
+
+        tr,
+
+        td {
+
+            border: 1px solid black;
+
+            flex: auto;
+
+            width: 70px;
+
+            text-align: center;
+
+            height: 30px;
+
+        }
+
+        input {
+
+            width: 35%;
+
+        }
+    </style>
+
 </head>
+
+
+
 <body>
-    <h1>HELLO</h1>
+    <h1>GHP Calculator</h1>
+    <form>
+        <table>
+            <tr>
+                <td>tydzień</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Przewidywany popyt</td>
+                <td><input id="sale1" type="text" value="0"/></td>
+                <td><input id="sale2" type="text" value="0"/></td>
+                <td><input id="sale3" type="text" value="0"/></td>
+                <td><input id="sale4" type="text" value="0"/></td>
+                <td><input id="sale5" type="text" value="0"/></td>
+                <td><input id="sale6" type="text" value="0"/></td>
+                <td><input id="sale7" type="text" value="0"/></td>
+                <td><input id="sale8" type="text" value="0"/></td>
+                <td><input id="sale9" type="text" value="0"/></td>
+                <td><input id="sale10" type="text" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Produkcja</td>
+                <td><input id="production1" type="text" value="0"/></td>
+                <td><input id="production2" type="text" value="0"/></td>
+                <td><input id="production3" type="text" value="0"/></td>
+                <td><input id="production4" type="text" value="0"/></td>
+                <td><input id="production5" type="text" value="0"/></td>
+                <td><input id="production6" type="text" value="0"/></td>
+                <td><input id="production7" type="text" value="0"/></td>
+                <td><input id="production8" type="text" value="0"/></td>
+                <td><input id="production9" type="text" value="0"/></td>
+                <td><input id="production10" type="text" value="0"/></td>
+            </tr>
+        </table><br>
+        <table>
+            <tr>
+                <td>Czas realizacji</td>
+                <td><input id="time" type="text" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Na składzie</td>
+                <td><input id="inventory" type="text" value="0"/></td>
+            </tr>
+        </table>
+        <input type="button" value="Submit" onclick="sendData()">
+    </form>
+    <h1>GHP</h1>
+    <table>
+        <tr>
+            <td>tydzień</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Przewidywany popyt</td>
+            <td><p id="saleTable1"></p></td>
+            <td><p id="saleTable2"></p></td>
+            <td><p id="saleTable3"></p></td>
+            <td><p id="saleTable4"></p></td>
+            <td><p id="saleTable5"></p></td>
+            <td><p id="saleTable6"></p></td>
+            <td><p id="saleTable7"></p></td>
+            <td><p id="saleTable8"></p></td>
+            <td><p id="saleTable9"></p></td>
+            <td><p id="saleTable10"></p></td>
+        </tr>
+        <tr>
+            <td>Produkcja</td>
+            <td><p id="productionTable1"></p></td>
+            <td><p id="productionTable2"></p></td>
+            <td><p id="productionTable3"></p></td>
+            <td><p id="productionTable4"></p></td>
+            <td><p id="productionTable5"></p></td>
+            <td><p id="productionTable6"></p></td>
+            <td><p id="productionTable7"></p></td>
+            <td><p id="productionTable8"></p></td>
+            <td><p id="productionTable9"></p></td>
+            <td><p id="productionTable10"></p></td>
+        </tr>
+        <tr>
+            <td>Dostępne</td>
+            <td><p id="inventoryTable1"></p></td>
+            <td><p id="inventoryTable2"></p></td>
+            <td><p id="inventoryTable3"></p></td>
+            <td><p id="inventoryTable4"></p></td>
+            <td><p id="inventoryTable5"></p></td>
+            <td><p id="inventoryTable6"></p></td>
+            <td><p id="inventoryTable7"></p></td>
+            <td><p id="inventoryTable8"></p></td>
+            <td><p id="inventoryTable9"></p></td>
+            <td><p id="inventoryTable10"></p></td>
+        </tr>
+    </table><br>
 </body>
+
+
 </html>
