@@ -1,11 +1,6 @@
 name: Build and push docker image
 
-on:
-  push:
-    branches:
-      - main
-      - net-api
-      - actions
+on: push
 
 jobs:
   docker:
