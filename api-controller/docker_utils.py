@@ -19,7 +19,3 @@ def kill_mrp_container():
     container.kill()
     container.remove()
 
-
-print('xd')
-pull_and_run_mrp_container()
-print('xddd')
