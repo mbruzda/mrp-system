@@ -65,13 +65,18 @@ function ShowResult() {
   for(var i =0; i<10; i++){
     if(result.SalesForecast[i]!=0){
        document.getElementById("saleTable"+(i+1)).innerHTML = result.SalesForecast[i]
+    }else 
+    {
+      document.getElementById("saleTable"+(i+1)).innerHTML = "";
     }
+
     if(result.Production[i]!=0){
       document.getElementById("productionTable"+(i+1)).innerHTML = result.Production[i]
+   }else 
+   {
+     document.getElementById("productionTable"+(i+1)).innerHTML = "";
    }
+   
     document.getElementById("inventoryTable"+(i+1)).innerHTML = result.Inventory[i]
-    
-    
   }
-
 }

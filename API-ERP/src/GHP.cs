@@ -21,7 +21,18 @@ namespace API_ERP
         public void FillTable()
         {
             _Data.Inventory[0] = _Data.StartingInventory - _Data.SalesForecast[0];
-            for (int i = 1; i < 10; i++) _Data.Inventory[i] = _Data.Inventory[i - 1] - _Data.SalesForecast[i] + _Data.Production[i];
+            for (int i = 1; i < 10; i++)
+            {
+                _Data.Inventory[i] = _Data.Inventory[i - 1] - _Data.SalesForecast[i] + _Data.Production[i];
+
+                if (_Data.Inventory[i]<0)
+                {
+                    var need = _Data.Inventory[i] * -1;
+                    _Data.Inventory[i] += need;
+                    _Data.Production[i] += need;
+                }
+            }
+            
         }
 
         public string DataToJson()
