@@ -55,9 +55,9 @@ namespace API_ERP
                         if (i > _MRPDatalvl2.RealizationTime - 1) //if this will be true we can start a production, otherwise we need to place an order
                         {
                             //PlannedRelease
-                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl2.LotSize > _MRPDatalvl2.NetRequirements[i] ? _MRPDatalvl2.LotSize : _MRPDatalvl2.LotSize * 2;
+                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl1.LotSize > _MRPDatalvl2.NetRequirements[i] ? _MRPDatalvl1.LotSize : _MRPDatalvl1.LotSize * 2;
                             //PlannedReceipt
-                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl2.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
+                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl1.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
                         }
                         else
                         {
