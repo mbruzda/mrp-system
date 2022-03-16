@@ -16,7 +16,7 @@ namespace API_ERP
             _multiplier = 2;
         }
 
-        public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0)
+        public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0, bool AP = false)
         {
             var MRPData = JsonConvert.DeserializeObject<MRPDataModel>(jsonString);
             _MRPDatalvl1 = MRPData;
@@ -24,6 +24,7 @@ namespace API_ERP
             _MRPDatalvl1.LotSize = LS;
             _MRPDatalvl1.BOM = BOM;
             _MRPDatalvl1.StartingInventory = SI;
+            _MRPDatalvl1.AutoPlanning = AP;
         }
 
         public void FillTable()
@@ -60,9 +61,12 @@ namespace API_ERP
                         }
                         else
                         {
-                            //SheduledReceipts
-                            _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.GrossRequirements[i] - _MRPDatalvl2.ProjectedOnHand[i];
-                            _MRPDatalvl2.ProjectedOnHand[i] = 0;
+                            if (_MRPDatalvl1.AutoPlanning)
+                            {
+                                //SheduledReceipts
+                                _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.GrossRequirements[i] - _MRPDatalvl2.ProjectedOnHand[i];
+                                _MRPDatalvl2.ProjectedOnHand[i] = 0;
+                            }
                         }
 
                     }
