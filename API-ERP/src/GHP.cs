@@ -12,7 +12,7 @@ namespace API_ERP
             _Data = new GHPDataModel();
         }
 
-        public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0)
+        public void SetDataFromJson(string jsonString, int RT = 0, int LS = 0, int BOM = 0, int SI = 0 , bool AP = false)
         {
             var Data = JsonConvert.DeserializeObject<GHPDataModel>(jsonString);
             _Data = Data;
