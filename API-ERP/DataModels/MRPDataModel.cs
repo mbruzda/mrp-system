@@ -12,5 +12,6 @@
         public int LotSize { get; set; } = 0;
         public int BOM { get; set; } = 0;
         public int StartingInventory { get; set; } = 0;
+        public bool AutoPlanning { get; set; } = false;
     }
 }
