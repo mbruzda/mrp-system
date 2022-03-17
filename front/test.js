@@ -42,6 +42,7 @@ function sendData(){
         result = JSON.Tryparse(this.response)
       }catch{
         console.log(this.response)
+        //Here will be code that will make popup with response message
       }
       
       ShowResult()
