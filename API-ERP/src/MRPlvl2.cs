@@ -1,9 +1,10 @@
 ﻿using API_ERP.DataModels;
+using API_ERP.Interfaces;
 using Newtonsoft.Json;
 
 namespace API_ERP
 {
-    public class MRPlvl2 : IERP
+    public class MRPlvl2 : ERP,IERP
     {
         public MRPDataModel _MRPDatalvl1;
         public MRPDataModel _MRPDatalvl2;
@@ -44,7 +45,7 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
-            for (int i = 0; i < 10; i++) _MRPDatalvl2.GrossRequirements[i] = _MRPDatalvl1.PlannedReceipt[i] * _multiplier;
+            _MRPDatalvl2.GrossRequirements = FillGrossRequirementsTable(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, 2);
             //ProjectedOnHand
             _MRPDatalvl2.ProjectedOnHand[0] = _MRPDatalvl2.StartingInventory - _MRPDatalvl2.GrossRequirements[0] + _MRPDatalvl2.SheduledReceipts[0];
             for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i] + _MRPDatalvl2.SheduledReceipts[i];
@@ -59,7 +60,7 @@ namespace API_ERP
 
                 if (_MRPDatalvl2.NetRequirements[i] > 0)
                 {
-                    if (i > _MRPDatalvl1.RealizationTime - 1 ) //if this will be true we can start a production, otherwise we need to place an order
+                    if (i > _MRPDatalvl1.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                     {
                         //PlannedRelease
                         if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl2.LotSize > _MRPDatalvl2.NetRequirements[i] ? _MRPDatalvl2.LotSize : _MRPDatalvl2.LotSize * 2;
@@ -74,14 +75,14 @@ namespace API_ERP
                             _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
                             _MRPDatalvl2.ProjectedOnHand[i] = 0;
                         }
-  
+
                     }
 
                 }
 
                 //ProjectedOnHandCorrection
                 for (int x = 1; x < 10; x++) _MRPDatalvl2.ProjectedOnHand[x] = _MRPDatalvl2.ProjectedOnHand[x - 1] - _MRPDatalvl2.GrossRequirements[x] + _MRPDatalvl2.PlannedRelease[x] + _MRPDatalvl2.SheduledReceipts[x];
-                
+
             }
         }
 

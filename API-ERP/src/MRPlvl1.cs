@@ -1,9 +1,10 @@
 ﻿using API_ERP.DataModels;
+using API_ERP.Interfaces;
 using Newtonsoft.Json;
 
 namespace API_ERP
 {
-    public class MRPlvl1 : IERP
+    public class MRPlvl1 : ERP,IERP
     {
         public GHPDataModel _GHPData;
         public MRPDataModel _MRPData;
@@ -39,7 +40,7 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
-            for (int i = 0; i < 10; i++) _MRPData.GrossRequirements[i - _GHPData.RealizationTime] = _GHPData.Production[i];
+            _MRPData.GrossRequirements = FillGrossRequirementsTable(_MRPData.GrossRequirements, _GHPData.Production, 1);
             //ProjectedOnHand
             _MRPData.ProjectedOnHand[0] = _MRPData.StartingInventory - _MRPData.GrossRequirements[0] + _MRPData.SheduledReceipts[0]; 
             for (int i = 1; i < 10; i++) _MRPData.ProjectedOnHand[i] = _MRPData.ProjectedOnHand[i - 1] - _MRPData.GrossRequirements[i] + _MRPData.SheduledReceipts[i];
@@ -54,7 +55,7 @@ namespace API_ERP
 
                 if (_MRPData.NetRequirements[i] > 0)
                 {
-                    if (i > _MRPData.RealizationTime - 1 ) //if this will be true we can start a production, otherwise we need to place an order
+                    if (i > _MRPData.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                     {
                         //PlannedRelease
                         if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize > _MRPData.NetRequirements[i] ? _MRPData.LotSize : _MRPData.LotSize * 2;
