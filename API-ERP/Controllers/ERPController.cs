@@ -23,6 +23,10 @@ namespace API_ERP.Controllers
                 _ghp.FillTable();
                 return _ghp.DataToJson();
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0";
+            }
             catch (Exception ex)
             {
                 return "Error:" + ex;
@@ -39,6 +43,10 @@ namespace API_ERP.Controllers
                 _mrplvl1.FillTable();
                 return _mrplvl1.DataToJson();
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0";
+            }
             catch (Exception ex)
             {
                 return "Error:" + ex;
@@ -54,6 +62,10 @@ namespace API_ERP.Controllers
                 _mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0";
             }
             catch (Exception ex)
             {
