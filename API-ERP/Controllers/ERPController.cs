@@ -19,6 +19,7 @@ namespace API_ERP.Controllers
             try
             {
                 _ghp.SetDataFromJson(jsonString);
+                _ghp.DataCheck();
                 _ghp.FillTable();
                 return _ghp.DataToJson();
             }
@@ -34,6 +35,7 @@ namespace API_ERP.Controllers
             try
             {
                 _mrplvl1.SetDataFromJson(jsonString, RT, LS, BOM, SI , AP);
+                _mrplvl1.DataCheck();
                 _mrplvl1.FillTable();
                 return _mrplvl1.DataToJson();
             }
@@ -49,6 +51,7 @@ namespace API_ERP.Controllers
             try
             {
                 _mrplvl2.SetDataFromJson(jsonString, RT, LS, BOM, SI, AP);
+                _mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
             }
