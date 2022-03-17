@@ -25,55 +25,62 @@ namespace API_ERP
             _MRPData.AutoPlanning = AP;
         }
 
+        public void DataCheck()
+        {
+            foreach (var num in _GHPData.SalesForecast) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _GHPData.Production) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _GHPData.Inventory) if (num < 0) throw new ArgumentOutOfRangeException();
+
+            if (_MRPData.RealizationTime < 0) throw new ArgumentOutOfRangeException();
+            if (_MRPData.LotSize < 0) throw new ArgumentOutOfRangeException();
+            if (_MRPData.StartingInventory < 0) throw new ArgumentOutOfRangeException();
+        }
+
         public void FillTable()
         {
             //GrossRequirements
-            for (int i = _GHPData.RealizationTime; i < 10; i++) _MRPData.GrossRequirements[i - _GHPData.RealizationTime] = _GHPData.Production[i];
+            for (int i = 0; i < 10; i++) _MRPData.GrossRequirements[i - _GHPData.RealizationTime] = _GHPData.Production[i];
             //ProjectedOnHand
-            _MRPData.ProjectedOnHand[0] = _MRPData.StartingInventory; for (int i = 1; i < 10; i++) _MRPData.ProjectedOnHand[i] = _MRPData.ProjectedOnHand[i - 1] - _MRPData.GrossRequirements[i];
+            _MRPData.ProjectedOnHand[0] = _MRPData.StartingInventory - _MRPData.GrossRequirements[0] + _MRPData.SheduledReceipts[0]; 
+            for (int i = 1; i < 10; i++) _MRPData.ProjectedOnHand[i] = _MRPData.ProjectedOnHand[i - 1] - _MRPData.GrossRequirements[i] + _MRPData.SheduledReceipts[i];
 
-            var finish = false;
-            while (!finish)
+            for (int i = 0; i < 10; i++)
             {
                 //NetRequirements
-                for (int i = 0; i < 10; i++)
+                if (_MRPData.ProjectedOnHand[i] < 0)
                 {
-                    if (_MRPData.ProjectedOnHand[i] < 0)
-                    {
-                        _MRPData.NetRequirements[i] = _MRPData.ProjectedOnHand[i] * -1;
-                        break;
-                    }
-                    if (i == 9) finish = true;
+                    _MRPData.NetRequirements[i] = _MRPData.ProjectedOnHand[i] * -1;
                 }
 
-                for (int i = 0; i < 10; i++)
+                if (_MRPData.NetRequirements[i] > 0)
                 {
-                    if (_MRPData.NetRequirements[i] > 0)
+                    if (i > _MRPData.RealizationTime - 1 ) //if this will be true we can start a production, otherwise we need to place an order
                     {
-                        if (i > _MRPData.RealizationTime - 1 ) //if this will be true we can start a production, otherwise we need to place an order
+                        //PlannedRelease
+                        if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize > _MRPData.NetRequirements[i] ? _MRPData.LotSize : _MRPData.LotSize * 2;
+                        //PlannedReceipt
+                        if (_MRPData.PlannedRelease[i] > 0) _MRPData.PlannedReceipt[i - _MRPData.RealizationTime] = _MRPData.PlannedRelease[i];
+                    }
+                    else
+                    {
+                        if (_MRPData.AutoPlanning)
                         {
-                            //PlannedRelease
-                            for (int x = 0; x < 10; x++) if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize > _MRPData.NetRequirements[i] ? _MRPData.LotSize : _MRPData.LotSize * 2;
-                            //PlannedReceipt
-                            for (int x = 0; x < 10; x++) if (_MRPData.PlannedRelease[i] > 0) _MRPData.PlannedReceipt[i - _MRPData.RealizationTime] = _MRPData.PlannedRelease[i];
+                            //SheduledReceipts
+                            if (i == 0) continue;
+                            _MRPData.SheduledReceipts[i] = _MRPData.GrossRequirements[i] - _MRPData.ProjectedOnHand[i-1];
+                            _MRPData.ProjectedOnHand[i] = 0;
                         }
-                        else
-                        {
-                            if (_MRPData.AutoPlanning)
-                            {
-                                //SheduledReceipts
-                                _MRPData.SheduledReceipts[i] = _MRPData.GrossRequirements[i] - _MRPData.ProjectedOnHand[i];
-                                _MRPData.ProjectedOnHand[i] = 0;
-                            }
   
-                        }
-
                     }
+
                 }
+
                 //ProjectedOnHandCorrection
-                for (int i = 1; i < 10; i++) _MRPData.ProjectedOnHand[i] = _MRPData.ProjectedOnHand[i - 1] - _MRPData.GrossRequirements[i] + _MRPData.PlannedRelease[i];
+                for (int x = 1; x < 10; x++) _MRPData.ProjectedOnHand[x] = _MRPData.ProjectedOnHand[x - 1] - _MRPData.GrossRequirements[x] + _MRPData.PlannedRelease[x] + _MRPData.SheduledReceipts[x];
+                
             }
         }
+
 
         public string DataToJson()
         {
