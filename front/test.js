@@ -38,15 +38,19 @@ function sendData(){
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
     xhr.addEventListener('readystatechange', function () {
     if (this.readyState === this.DONE) {
-  
-      result = JSON.parse(this.response)
+      try{
+        result = JSON.Tryparse(this.response)
+      }catch{
+        console.log(this.response)
+      }
+      
       ShowResult()
       
     }
   
   })
   
-  xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+  xhr.open('POST', 'http://localhost:5000/api/GetGHPTable', true)
   xhr.setRequestHeader('content-type', 'application/json')
   xhr.withCredentials = false;
 
