@@ -25,7 +25,7 @@ namespace API_ERP.Controllers
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                return "Value cant be less that 0";
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace API_ERP.Controllers
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                return "Value cant be less that 0";
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace API_ERP.Controllers
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                return "Value cant be less that 0";
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {
