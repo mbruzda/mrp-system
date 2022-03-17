@@ -66,8 +66,7 @@ namespace API_ERP
                         if (_MRPData.AutoPlanning)
                         {
                             //SheduledReceipts
-                            if (i == 0) continue;
-                            _MRPData.SheduledReceipts[i] = _MRPData.GrossRequirements[i] - _MRPData.ProjectedOnHand[i-1];
+                            _MRPData.SheduledReceipts[i] = _MRPData.NetRequirements[i];
                             _MRPData.ProjectedOnHand[i] = 0;
                         }
   

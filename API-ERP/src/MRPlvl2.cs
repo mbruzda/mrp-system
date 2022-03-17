@@ -71,8 +71,7 @@ namespace API_ERP
                         if (_MRPDatalvl2.AutoPlanning)
                         {
                             //SheduledReceipts
-                            if (i == 0) continue;
-                            _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.GrossRequirements[i] - _MRPDatalvl2.ProjectedOnHand[i-1];
+                            _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
                             _MRPDatalvl2.ProjectedOnHand[i] = 0;
                         }
   
