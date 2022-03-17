@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using API_ERP;
-using System.Text.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace API_ERP.Controllers
 {
