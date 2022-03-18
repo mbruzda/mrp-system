@@ -39,7 +39,7 @@ function sendData(){
     xhr.addEventListener('readystatechange', function () {
     if (this.readyState === this.DONE) {
       try{
-        result = JSON.Tryparse(this.response)
+        result = JSON.parse(this.response)
       }catch{
         console.log(this.response)
         //Here will be code that will make popup with response message
@@ -51,7 +51,7 @@ function sendData(){
   
   })
   
-  xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+  xhr.open('POST', 'https://35.246.143.214/api/GetGHPTable', true)
   xhr.setRequestHeader('content-type', 'application/json')
   xhr.withCredentials = false;
 
