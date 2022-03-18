@@ -1,6 +1,6 @@
 ﻿namespace API_ERP.Interfaces
 {
-    public abstract class ERP
+    public class ERP
     {
         public int[] FillGrossRequirementsTable(int[] GrossRequirementsTable, int[] SupplyTTable, int mulitplier = 1)
         {
