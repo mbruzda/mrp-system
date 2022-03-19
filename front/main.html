@@ -6,10 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="test.js"></script>
-    <title>Document</title>
+    <title>MRP System</title>
 
     <style>
+        body {
+            margin: 20px;
+        }
         table {
             border-collapse: collapse;
         }
@@ -28,24 +32,25 @@
 </head>
 
 <body>
-    <h1>GHP Calculator</h1>
+    <h1 class="title">GHP Calculator</h1>
     <form>
-        <table>
+        <table class="table is-hoverable is-bordered">
+            <thead><tr>
+                <th>Tydzień</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+            </tr></thead>
+            <tbody>
             <tr>
-                <td>tydzień</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>Przewidywany popyt</td>
+                <th>Przewidywany popyt</th>
                 <td><input id="sale1" type="text" value="0"/></td>
                 <td><input id="sale2" type="text" value="0"/></td>
                 <td><input id="sale3" type="text" value="0"/></td>
@@ -58,7 +63,7 @@
                 <td><input id="sale10" type="text" value="0"/></td>
             </tr>
             <tr>
-                <td>Produkcja</td>
+                <th>Produkcja</th>
                 <td><input id="production1" type="text" value="0"/></td>
                 <td><input id="production2" type="text" value="0"/></td>
                 <td><input id="production3" type="text" value="0"/></td>
@@ -70,36 +75,37 @@
                 <td><input id="production9" type="text" value="0"/></td>
                 <td><input id="production10" type="text" value="0"/></td>
             </tr>
+            </tbody>
         </table><br>
-        <table>
+        <table class="table is-hoverable is-bordered">
             <tr>
-                <td>Czas realizacji</td>
+                <th>Czas realizacji</th>
                 <td><input id="time" type="text" value="0"/></td>
             </tr>
             <tr>
-                <td>Na składzie</td>
+                <th>Na składzie</th>
                 <td><input id="inventory" type="text" value="0"/></td>
             </tr>
         </table>
-        <input type="button" value="Submit" onclick="sendData()">
-    </form>
-    <h1>GHP</h1>
-    <table>
+        <input class="button" type="button" value="Submit" onclick="sendData()">
+    </form><br>
+    <h1 class="title">GHP</h1>
+    <table class="table is-hoverable is-bordered">
+        <thead><tr>
+            <th>Tydzień</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+        </tr></thead>
         <tr>
-            <td>tydzień</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>Przewidywany popyt</td>
+            <th>Przewidywany popyt</th>
             <td><p id="saleTable1"></p></td>
             <td><p id="saleTable2"></p></td>
             <td><p id="saleTable3"></p></td>
@@ -112,7 +118,7 @@
             <td><p id="saleTable10"></p></td>
         </tr>
         <tr>
-            <td>Produkcja</td>
+            <th>Produkcja</th>
             <td><p id="productionTable1"></p></td>
             <td><p id="productionTable2"></p></td>
             <td><p id="productionTable3"></p></td>
@@ -125,7 +131,7 @@
             <td><p id="productionTable10"></p></td>
         </tr>
         <tr>
-            <td>Dostępne</td>
+            <th>Dostępne</th>
             <td><p id="inventoryTable1"></p></td>
             <td><p id="inventoryTable2"></p></td>
             <td><p id="inventoryTable3"></p></td>
