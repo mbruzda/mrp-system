@@ -12,6 +12,7 @@
     <style>
         table {
             border-collapse: collapse;
+            float: left;
         }
         tr,
         td {
@@ -24,12 +25,17 @@
         input {
             width: 35%;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
 <body>
     <h1>GHP Calculator</h1>
-    <form>
+    
         <table>
             <tr>
                 <td>tydzień</td>
@@ -46,43 +52,131 @@
             </tr>
             <tr>
                 <td>Przewidywany popyt</td>
-                <td><input id="sale1" type="text" value="0"/></td>
-                <td><input id="sale2" type="text" value="0"/></td>
-                <td><input id="sale3" type="text" value="0"/></td>
-                <td><input id="sale4" type="text" value="0"/></td>
-                <td><input id="sale5" type="text" value="0"/></td>
-                <td><input id="sale6" type="text" value="0"/></td>
-                <td><input id="sale7" type="text" value="0"/></td>
-                <td><input id="sale8" type="text" value="0"/></td>
-                <td><input id="sale9" type="text" value="0"/></td>
-                <td><input id="sale10" type="text" value="0"/></td>
+                <td><input id="sale1" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale2" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale3" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale4" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale5" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale6" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale7" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale8" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale9" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="sale10" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
             <tr>
                 <td>Produkcja</td>
-                <td><input id="production1" type="text" value="0"/></td>
-                <td><input id="production2" type="text" value="0"/></td>
-                <td><input id="production3" type="text" value="0"/></td>
-                <td><input id="production4" type="text" value="0"/></td>
-                <td><input id="production5" type="text" value="0"/></td>
-                <td><input id="production6" type="text" value="0"/></td>
-                <td><input id="production7" type="text" value="0"/></td>
-                <td><input id="production8" type="text" value="0"/></td>
-                <td><input id="production9" type="text" value="0"/></td>
-                <td><input id="production10" type="text" value="0"/></td>
+                <td><input id="production1" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production2" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production3" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production4" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production5" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production6" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production7" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production8" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production9" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input id="production10" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
         </table><br>
         <table>
+            <th>
+                Taczka
+            </th>
             <tr>
                 <td>Czas realizacji</td>
-                <td><input id="time" type="text" value="0"/></td>
+                <td><input id="time" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
             <tr>
                 <td>Na składzie</td>
-                <td><input id="inventory" type="text" value="0"/></td>
+                <td><input id="inventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
         </table>
+        <table>
+            <th>
+                Koło
+            </th>
+            <tr>
+                <td>Czas realizacji</td>
+                <td><input id="wTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Wielkość partii</td>
+                <td><input id="wLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Poziom BOM</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Na składzie</td>
+                <td><input id="wInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+        </table>
+        <table>
+            <th>
+                Skrzynia ładunkowa
+            </th>
+            <tr>
+                <td>Czas realizacji</td>
+                <td><input id="bTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Wielkość partii</td>
+                <td><input id="bLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Poziom BOM</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Na składzie</td>
+                <td><input id="bInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+        </table>
+        <table>
+            <th>
+                Podpórka
+            </th>
+            <tr>
+                <td>Czas realizacji</td>
+                <td><input id="cTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Wielkość partii</td>
+                <td><input id="cLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Poziom BOM</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Na składzie</td>
+                <td><input id="cInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+        </table>
+        <table>
+            <th>
+                Uchwyty
+            </th>
+            <tr>
+                <td>Czas realizacji</td>
+                <td><input id="hTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Wielkość partii</td>
+                <td><input id="hLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+            <tr>
+                <td>Poziom BOM</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Na składzie</td>
+                <td><input id="hInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+            </tr>
+        </table>
+        <br>
         <input type="button" value="Submit" onclick="sendData()">
-    </form>
+    
     <h1>GHP</h1>
     <table>
         <tr>
@@ -136,6 +230,100 @@
             <td><p id="inventoryTable8"></p></td>
             <td><p id="inventoryTable9"></p></td>
             <td><p id="inventoryTable10"></p></td>
+        </tr>
+    </table><br>
+    <h1>MRP Koło</h1>
+    <table>
+        <tr>
+            <td>tydzień</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Całkowite zapotrzebowanie</td>
+            <td><p id="wGrossRequirements1"></p></td>
+            <td><p id="wGrossRequirements2"></p></td>
+            <td><p id="wGrossRequirements3"></p></td>
+            <td><p id="wGrossRequirements4"></p></td>
+            <td><p id="wGrossRequirements5"></p></td>
+            <td><p id="wGrossRequirements6"></p></td>
+            <td><p id="wGrossRequirements7"></p></td>
+            <td><p id="wGrossRequirements8"></p></td>
+            <td><p id="wGrossRequirements9"></p></td>
+            <td><p id="wGrossRequirements10"></p></td>
+        </tr>
+        <tr>
+            <td>Planowane przyjęcia</td>
+            <td><p id="wScheduledReceipts1"></p></td>
+            <td><p id="wScheduledReceipts2"></p></td>
+            <td><p id="wScheduledReceipts3"></p></td>
+            <td><p id="wScheduledReceipts4"></p></td>
+            <td><p id="wScheduledReceipts5"></p></td>
+            <td><p id="wScheduledReceipts6"></p></td>
+            <td><p id="wScheduledReceipts7"></p></td>
+            <td><p id="wScheduledReceipts8"></p></td>
+            <td><p id="wScheduledReceipts9"></p></td>
+            <td><p id="wScheduledReceipts10"></p></td>
+        </tr>
+        <tr>
+            <td>Przewidywane na stanie</td>
+            <td><p id="wProjectedOnHand1"></p></td>
+            <td><p id="wProjectedOnHand2"></p></td>
+            <td><p id="wProjectedOnHand3"></p></td>
+            <td><p id="wProjectedOnHand4"></p></td>
+            <td><p id="wProjectedOnHand5"></p></td>
+            <td><p id="wProjectedOnHand6"></p></td>
+            <td><p id="wProjectedOnHand7"></p></td>
+            <td><p id="wProjectedOnHand8"></p></td>
+            <td><p id="wProjectedOnHand9"></p></td>
+            <td><p id="wProjectedOnHand10"></p></td>
+        </tr>
+        <tr>
+            <td>Zapotrzebowanie netto</td>
+            <td><p id="wNetRequirements1"></p></td>
+            <td><p id="wNetRequirements2"></p></td>
+            <td><p id="wNetRequirements3"></p></td>
+            <td><p id="wNetRequirements4"></p></td>
+            <td><p id="wNetRequirements5"></p></td>
+            <td><p id="wNetRequirements6"></p></td>
+            <td><p id="wNetRequirements7"></p></td>
+            <td><p id="wNetRequirements8"></p></td>
+            <td><p id="wNetRequirements9"></p></td>
+            <td><p id="wNetRequirements10"></p></td>
+        </tr>
+        <tr>
+            <td>Planowane zamówienia</td>
+            <td><p id="wPlannedReceipts1"></p></td>
+            <td><p id="wPlannedReceipts2"></p></td>
+            <td><p id="wPlannedReceipts3"></p></td>
+            <td><p id="wPlannedReceipts4"></p></td>
+            <td><p id="wPlannedReceipts5"></p></td>
+            <td><p id="wPlannedReceipts6"></p></td>
+            <td><p id="wPlannedReceipts7"></p></td>
+            <td><p id="wPlannedReceipts8"></p></td>
+            <td><p id="wPlannedReceipts9"></p></td>
+            <td><p id="wPlannedReceipts10"></p></td>
+        </tr>
+        <tr>
+            <td>Planowane przyjęcie zamówień</td>
+            <td><p id="wPlannedRelease1"></p></td>
+            <td><p id="wPlannedRelease2"></p></td>
+            <td><p id="wPlannedRelease3"></p></td>
+            <td><p id="wPlannedRelease4"></p></td>
+            <td><p id="wPlannedRelease5"></p></td>
+            <td><p id="wPlannedRelease6"></p></td>
+            <td><p id="wPlannedRelease7"></p></td>
+            <td><p id="wPlannedRelease8"></p></td>
+            <td><p id="wPlannedRelease9"></p></td>
+            <td><p id="wPlannedRelease10"></p></td>
         </tr>
     </table><br>
 </body>

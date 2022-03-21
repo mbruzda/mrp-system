@@ -1,16 +1,17 @@
 //alert("aaa");
 
 var result
-
+var wMRP
 var text = "{'salesForecast':[0,0,0,0,10,0,20,0,0,0],'production':[0,0,0,0,0,0,0,0,0,0],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':1,'startingInventory':2}";
+var mrp = "{'grossRequirements':[0,0,0,0,10,0,20,0,0,0],'scheduledReceipts':[0,0,0,0,0,0,0,0,0,0],'projectedOnHand':[0,0,0,0,0,0,0,0,0,0],'netRequirements':[0,0,0,0,0,0,0,0,0,0],'plannedReceipt':[0,0,0,0,0,0,0,0,0,0],'plannedRelease':[0,0,0,0,0,0,0,0,0,0],'realizationTime':0,'lotSize':0,'BOM':0,'startingInventory':0,'autoPlanning':0}"
 
 
 
-const xhr = new XMLHttpRequest()
-
-xhr.withCredentials = false;
 
 function sendData(){
+
+    const xhr = new XMLHttpRequest()
+    xhr.withCredentials = false;
 
     text = "{'salesForecast':["+
     document.getElementById("sale1").value+","+
@@ -36,52 +37,108 @@ function sendData(){
     document.getElementById("production10").value+","+
     "],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':"+document.getElementById("time").value+
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
+
+    xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.send(JSON.stringify(text))
+
     xhr.addEventListener('readystatechange', function () {
-    if (this.readyState === this.DONE) {
-      try{
-        result = JSON.Tryparse(this.response)
-      }catch{
-        console.log(this.response)
-        //Here will be code that will make popup with response message
-      }
-      
-      ShowResult()
-      
-    }
-  
-  })
-  
-  xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+      if (this.readyState === this.DONE) {
+        try{
+          result = toCamel(JSON.parse(this.response))
+        }catch{
+          console.log(this.response)
+          //Here will be code that will make popup with response message
+        }
+
+        const xhr = new XMLHttpRequest()
+    xhr.withCredentials = false;
+  xhr.open('POST', 'http://35.246.143.214/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
   xhr.setRequestHeader('content-type', 'application/json')
-  xhr.withCredentials = false;
+  result = JSON.stringify(result)
+  
+  console.log(JSON.stringify(result.replace(/["]/g,"'")))
+  xhr.send(JSON.stringify(result.replace(/["]/g,"'")))
 
-  xhr.send(JSON.stringify(text))
+  xhr.addEventListener('readystatechange', function () {
+    if (this.readyState === this.DONE) {
 
+        console.log(JSON.parse(this.response))
+        wMRP = JSON.parse(this.response)
+        ShowResult()
+       
+    }
+    })
+        
+    
+        
+      }
+      })
+
+    
+  
+  
+
+  
 }
-
   
 
 
 
 function ShowResult() {
 
+  
+  result = JSON.parse(result)
   console.log(result)
-
+  console.log(wMRP)
   for(var i =0; i<10; i++){
-    if(result.SalesForecast[i]!=0){
-       document.getElementById("saleTable"+(i+1)).innerHTML = result.SalesForecast[i]
+    if(result.salesForecast[i]!=0){
+       document.getElementById("saleTable"+(i+1)).innerHTML = result.salesForecast[i]
     }else 
     {
       document.getElementById("saleTable"+(i+1)).innerHTML = "";
     }
 
-    if(result.Production[i]!=0){
-      document.getElementById("productionTable"+(i+1)).innerHTML = result.Production[i]
+    if(result.production[i]!=0){
+      document.getElementById("productionTable"+(i+1)).innerHTML = result.production[i]
    }else 
    {
      document.getElementById("productionTable"+(i+1)).innerHTML = "";
    }
    
-    document.getElementById("inventoryTable"+(i+1)).innerHTML = result.Inventory[i]
+    document.getElementById("inventoryTable"+(i+1)).innerHTML = result.inventory[i]
+
+
+    if(wMRP.GrossRequirements[i]!=0){
+      document.getElementById("wGrossRequirements"+(i+1)).innerHTML = wMRP.GrossRequirements[i]
+    }
+    else {
+     document.getElementById("wGrossRequirements"+(i+1)).innerHTML = "";
+    }
   }
+}
+
+function toCamel(o) {
+  var newO, origKey, newKey, value
+  if (o instanceof Array) {
+    return o.map(function(value) {
+        if (typeof value === "object") {
+          value = toCamel(value)
+        }
+        return value
+    })
+  } else {
+    newO = {}
+    for (origKey in o) {
+      if (o.hasOwnProperty(origKey)) {
+        newKey = (origKey.charAt(0).toLowerCase() + origKey.slice(1) || origKey).toString()
+        value = o[origKey]
+        if (value instanceof Array || (value !== null && value.constructor === Object)) {
+          value = toCamel(value)
+        }
+        newO[newKey] = value
+      }
+    }
+  }
+  return newO
 }
