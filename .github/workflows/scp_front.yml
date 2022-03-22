@@ -7,8 +7,6 @@ jobs:
     name: scp
     runs-on: ubuntu-latest
     steps:
-    - name: rename folder
-      run: mv front/* mrp/*
     - uses: actions/checkout@master
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
