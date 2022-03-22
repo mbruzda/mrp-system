@@ -3,8 +3,8 @@ var interval
 var result
 var wMRP = 0
 var bMRP = 0
-var wMRP_ready = false;
-var bMRP_ready = false;
+var cMRP = 0
+var hMRP = 0
 var text = "{'salesForecast':[0,0,0,0,10,0,20,0,0,0],'production':[0,0,0,0,0,0,0,0,0,0],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':1,'startingInventory':2}";
 var mrp = "{'grossRequirements':[0,0,0,0,10,0,20,0,0,0],'scheduledReceipts':[0,0,0,0,0,0,0,0,0,0],'projectedOnHand':[0,0,0,0,0,0,0,0,0,0],'netRequirements':[0,0,0,0,0,0,0,0,0,0],'plannedReceipt':[0,0,0,0,0,0,0,0,0,0],'plannedRelease':[0,0,0,0,0,0,0,0,0,0],'realizationTime':0,'lotSize':0,'BOM':0,'startingInventory':0,'autoPlanning':0}"
 
@@ -15,6 +15,8 @@ function sendData(){
 
     wMRP = 0
     bMRP = 0
+    cMRP = 0
+    hMRP = 0
     const xhr = new XMLHttpRequest()
     xhr.withCredentials = false;
 
@@ -43,7 +45,7 @@ function sendData(){
     "],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':"+document.getElementById("time").value+
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
 
-    xhr.open('POST', 'https://20.113.171.243:8080/api/GetGHPTable', true)
+    xhr.open('POST', 'http://erp.oskarkozaczka.pl/api/GetGHPTable', true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.send(JSON.stringify(text))
 
@@ -61,7 +63,7 @@ function sendData(){
 
         const xhrW = new XMLHttpRequest()
         xhrW.withCredentials = false;
-        xhrW.open('POST', 'http://35.246.143.214/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
+        xhrW.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
         xhrW.setRequestHeader('content-type', 'application/json')
         
         xhrW.send(JSON.stringify(result.replace(/["]/g,"'")))
@@ -77,7 +79,7 @@ function sendData(){
 
         const xhrB = new XMLHttpRequest()
         xhrB.withCredentials = false;
-        xhrB.open('POST', 'http://35.246.143.214/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/true', true)
+        xhrB.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/true', true)
         xhrB.setRequestHeader('content-type', 'application/json')
 
         xhrB.send(JSON.stringify(result.replace(/["]/g,"'")))
@@ -88,6 +90,37 @@ function sendData(){
               bMRP = JSON.parse(this.response)
               bMRP_ready = true
             
+          }
+        }) 
+
+        const xhrC = new XMLHttpRequest()
+        xhrC.withCredentials = false;
+        xhrC.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("cTime").value+'/'+document.getElementById("cLotSize").value+'/1/'+document.getElementById("cInventory").value+'/true', true)
+        xhrC.setRequestHeader('content-type', 'application/json')
+
+        xhrC.send(JSON.stringify(result.replace(/["]/g,"'")))
+
+        xhrC.addEventListener('readystatechange', function () {
+          if (this.readyState === this.DONE) {
+              console.log(JSON.parse(this.response))
+              cMRP = JSON.parse(this.response)
+              cMRP_ready = true
+
+              const xhrH = new XMLHttpRequest()
+              xhrH.withCredentials = false;
+              xhrH.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/true', true)
+              xhrH.setRequestHeader('content-type', 'application/json')
+
+              xhrH.send(JSON.stringify(result.replace(/["]/g,"'")))
+
+              xhrH.addEventListener('readystatechange', function () {
+                if (this.readyState === this.DONE) {
+                    console.log(JSON.parse(this.response))
+                    hMRP = JSON.parse(this.response)
+                    hMRP_ready = true
+            
+                }
+              })
           }
         }) 
       }
@@ -102,12 +135,14 @@ function sendData(){
 
 function ShowResult() {
 
-  if(wMRP != 0 && bMRP != 0){
+  if(wMRP != 0 && bMRP != 0 && cMRP != 0 && hMRP != 0){
     clearInterval(interval)
     result = JSON.parse(result)
     console.log(result)
     console.log(wMRP)
     console.log(bMRP)
+    console.log(cMRP)
+    console.log(hMRP)
     for(var i =0; i<10; i++){
       if(result.salesForecast[i]!=0){
         document.getElementById("saleTable"+(i+1)).innerHTML = result.salesForecast[i]
@@ -199,6 +234,80 @@ function ShowResult() {
       }
       else {
       document.getElementById("bScheduledReceipts"+(i+1)).innerHTML = "";
+      }
+
+      if(cMRP.GrossRequirements[i]!=0){
+        document.getElementById("cGrossRequirements"+(i+1)).innerHTML = cMRP.GrossRequirements[i]
+      }
+      else {
+      document.getElementById("cGrossRequirements"+(i+1)).innerHTML = "";
+      }
+      if(cMRP.NetRequirements[i]!=0){
+        document.getElementById("cNetRequirements"+(i+1)).innerHTML = cMRP.NetRequirements[i]
+      }
+      else {
+      document.getElementById("cNetRequirements"+(i+1)).innerHTML = "";
+      }
+      if(cMRP.PlannedReceipt[i]!=0){
+        document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = cMRP.PlannedReceipt[i]
+      }
+      else {
+      document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = "";
+      }
+      if(cMRP.PlannedRelease[i]!=0){
+        document.getElementById("cPlannedRelease"+(i+1)).innerHTML = cMRP.PlannedRelease[i]
+      }
+      else {
+      document.getElementById("cPlannedRelease"+(i+1)).innerHTML = "";
+      }
+      if(cMRP.ProjectedOnHand[i]!=0){
+        document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = cMRP.ProjectedOnHand[i]
+      }
+      else {
+      document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = "";
+      }
+      if(cMRP.SheduledReceipts[i]!=0){
+        document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = cMRP.SheduledReceipts[i]
+      }
+      else {
+      document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = "";
+      }
+
+      if(hMRP.GrossRequirements[i]!=0){
+        document.getElementById("hGrossRequirements"+(i+1)).innerHTML = hMRP.GrossRequirements[i]
+      }
+      else {
+      document.getElementById("hGrossRequirements"+(i+1)).innerHTML = "";
+      }
+      if(hMRP.NetRequirements[i]!=0){
+        document.getElementById("hNetRequirements"+(i+1)).innerHTML = hMRP.NetRequirements[i]
+      }
+      else {
+      document.getElementById("hNetRequirements"+(i+1)).innerHTML = "";
+      }
+      if(hMRP.PlannedReceipt[i]!=0){
+        document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = hMRP.PlannedReceipt[i]
+      }
+      else {
+      document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = "";
+      }
+      if(hMRP.PlannedRelease[i]!=0){
+        document.getElementById("hPlannedRelease"+(i+1)).innerHTML = hMRP.PlannedRelease[i]
+      }
+      else {
+      document.getElementById("hPlannedRelease"+(i+1)).innerHTML = "";
+      }
+      if(hMRP.ProjectedOnHand[i]!=0){
+        document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = hMRP.ProjectedOnHand[i]
+      }
+      else {
+      document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = "";
+      }
+      if(hMRP.SheduledReceipts[i]!=0){
+        document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = hMRP.SheduledReceipts[i]
+      }
+      else {
+      document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = "";
       }
     }
   }
