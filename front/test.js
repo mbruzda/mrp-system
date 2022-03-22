@@ -38,7 +38,7 @@ function sendData(){
     "],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':"+document.getElementById("time").value+
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
 
-    xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+    xhr.open('POST', 'http://erp.oskarkozaczka.pl/api/GetGHPTable', true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.send(JSON.stringify(text))
 
@@ -53,7 +53,7 @@ function sendData(){
 
         const xhr = new XMLHttpRequest()
     xhr.withCredentials = false;
-  xhr.open('POST', 'http://35.246.143.214/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
+  xhr.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
   xhr.setRequestHeader('content-type', 'application/json')
   result = JSON.stringify(result)
   
