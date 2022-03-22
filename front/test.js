@@ -1,4 +1,6 @@
 //alert("aaa");
+
+const ApiURL = "http://erp.oskarkozaczka.pl"
 var interval
 var result
 var wMRP = 0
@@ -45,7 +47,7 @@ function sendData(){
     "],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':"+document.getElementById("time").value+
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
 
-    xhr.open('POST', 'http://erp.oskarkozaczka.pl/api/GetGHPTable', true)
+    xhr.open('POST', ApiURL+'/api/GetGHPTable', true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.send(JSON.stringify(text))
 
@@ -63,7 +65,7 @@ function sendData(){
 
         const xhrW = new XMLHttpRequest()
         xhrW.withCredentials = false;
-        xhrW.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
+        xhrW.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/true', true)
         xhrW.setRequestHeader('content-type', 'application/json')
         
         xhrW.send(JSON.stringify(result.replace(/["]/g,"'")))
@@ -79,7 +81,7 @@ function sendData(){
 
         const xhrB = new XMLHttpRequest()
         xhrB.withCredentials = false;
-        xhrB.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/true', true)
+        xhrB.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/true', true)
         xhrB.setRequestHeader('content-type', 'application/json')
 
         xhrB.send(JSON.stringify(result.replace(/["]/g,"'")))
@@ -95,7 +97,7 @@ function sendData(){
 
         const xhrC = new XMLHttpRequest()
         xhrC.withCredentials = false;
-        xhrC.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl1Table/'+document.getElementById("cTime").value+'/'+document.getElementById("cLotSize").value+'/1/'+document.getElementById("cInventory").value+'/true', true)
+        xhrC.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("cTime").value+'/'+document.getElementById("cLotSize").value+'/1/'+document.getElementById("cInventory").value+'/true', true)
         xhrC.setRequestHeader('content-type', 'application/json')
 
         xhrC.send(JSON.stringify(result.replace(/["]/g,"'")))
@@ -108,7 +110,7 @@ function sendData(){
 
               const xhrH = new XMLHttpRequest()
               xhrH.withCredentials = false;
-              xhrH.open('POST', 'http://erp.oskarkozaczka.pl/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/true', true)
+              xhrH.open('POST', ApiURL+'/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/true', true)
               xhrH.setRequestHeader('content-type', 'application/json')
 
               xhrH.send(JSON.stringify(result.replace(/["]/g,"'")))
