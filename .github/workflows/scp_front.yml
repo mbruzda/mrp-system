@@ -7,6 +7,8 @@ jobs:
     name: scp
     runs-on: ubuntu-latest
     steps:
+    - name: rename folder
+      run: mv front/* mrp/*
     - uses: actions/checkout@master
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
@@ -15,5 +17,5 @@ jobs:
         username: ${{ secrets.VIE_USER }}
         password: ${{ secrets.VIE_PASS }}
         port: 22
-        source: "front/index.html,tests/test.js"
-        target: "public_html/web/mrp"
+        source: "mrp/index.html,mrp/test.js"
+        target: "public_html/web"
