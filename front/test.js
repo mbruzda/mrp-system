@@ -43,7 +43,7 @@ function sendData(){
     "],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':"+document.getElementById("time").value+
     ",'startingInventory':"+document.getElementById("inventory").value+"}";
 
-    xhr.open('POST', 'http://35.246.143.214/api/GetGHPTable', true)
+    xhr.open('POST', 'https://20.113.171.243:8080/api/GetGHPTable', true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.send(JSON.stringify(text))
 
