@@ -15,5 +15,5 @@ jobs:
         username: ${{ secrets.VIE_USER }}
         password: ${{ secrets.VIE_PASS }}
         port: 22
-        source: "front/index.html,front/test.js"
+        source: "front/*"
         target: "public_html/web"
