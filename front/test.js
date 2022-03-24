@@ -1,6 +1,6 @@
 //alert("aaa");
 
-const ApiURL = "http://erp.oskarkozaczka.pl"
+const ApiURL = "http://localhost:5000"
 var interval
 var result
 var wMRP = 0
@@ -10,11 +10,13 @@ var hMRP = 0
 var text = "{'salesForecast':[0,0,0,0,10,0,20,0,0,0],'production':[0,0,0,0,0,0,0,0,0,0],'inventory':[0,0,0,0,0,0,0,0,0,0],'realizationTime':1,'startingInventory':2}";
 var mrp = "{'grossRequirements':[0,0,0,0,10,0,20,0,0,0],'scheduledReceipts':[0,0,0,0,0,0,0,0,0,0],'projectedOnHand':[0,0,0,0,0,0,0,0,0,0],'netRequirements':[0,0,0,0,0,0,0,0,0,0],'plannedReceipt':[0,0,0,0,0,0,0,0,0,0],'plannedRelease':[0,0,0,0,0,0,0,0,0,0],'realizationTime':0,'lotSize':0,'BOM':0,'startingInventory':0,'autoPlanning':0}"
 
-
+window.addEventListener("load", function () {
+  setTimeout(() => {  const loading = document.querySelector(".loading");
+  loading.className += " hidden"}, 2000);
+});
 
 
 function sendData(){
-
     wMRP = 0
     bMRP = 0
     cMRP = 0
@@ -338,4 +340,6 @@ function toCamel(o) {
     }
   }
   return newO
+
+  
 }
