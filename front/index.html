@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="data" lang="en">
 
 
 <head>
@@ -14,43 +14,46 @@
 
 <body>
 
-    <div class="loading">
+    <!--<div class="loading">
         <img src="arekgif.gif" alt="Loading..." />
-    </div>
+    </div>-->
     <div class="tabs is-centered is-boxed is-medium">
         <ul>
-          <li class="is-active">
-            <a>
+          <li>
+            <a href="#data">
               <span>Dane</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#ghp">
               <span>GHP Table</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#wheel">
               <span>MRP Koło</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#tray">
               <span>MRP Skrzynia ładunkowa</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#support">
               <span>MRP Podpórka</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#handle">
               <span>MRP Uchwyty</span>
             </a>
           </li>
         </ul>
     </div>
+    <div class="main">
+
+        <img src="img/wheelbarrow.svg" alt="wheelbarrow" class="img">
         <table class="table is-hoverable is-bordered center">
 
             <thead><tr>
@@ -95,7 +98,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table is-hoverable is-bordered center">
+        <!--<table class="table is-hoverable is-bordered center">
             <thead>
             <tr>
                 <th>Taczka</th>
@@ -112,11 +115,12 @@
                 <td><input class="input is-small" id="inventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
         <table class="table is-hoverable is-bordered center">
             <thead>
             <tr>
                 <th>Element</th>
+                <th>Taczka</th>
                 <th>Koło</th>
                 <th>Skrzynia ładunkowa</th>
                 <th>Podpórka</th>
@@ -126,6 +130,7 @@
             <tbody>
             <tr>
                 <th>Czas realizacji</th>
+                <td><input class="input is-small" id="time" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="wTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="bTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="cTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
@@ -133,6 +138,7 @@
             </tr>
             <tr>
                 <th>Wielkość partii</th>
+                <td></td>
                 <td><input class="input is-small" id="wLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="bLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="cLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
@@ -140,6 +146,7 @@
             </tr>
             <tr>
                 <th>Poziom BOM</th>
+                <td></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
@@ -147,6 +154,7 @@
             </tr>
             <tr>
                 <th>Na składzie</th>
+                <td><input class="input is-small" id="inventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="wInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="bInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="cInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
@@ -156,7 +164,7 @@
         </table>
         <input class="button button_css" type="button" value="Submit" onclick="sendData()">
     <h1><br></h1>
-    <h1 class="title">GHP</h1>
+    <h1 id="ghp" class="title scroll">GHP</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -213,7 +221,7 @@
         </tr>
         </tbody>
     </table><br>
-    <h1 class="title">MRP Koło</h1>
+    <h1 id="wheel" class="title scroll">MRP Koło</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -310,7 +318,7 @@
         </tbody>
     </table><br>
 
-    <h1 class="title">MRP Skrzynia ładunkowa</h1>
+    <h1 id="tray" class="title scroll">MRP Skrzynia ładunkowa</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -407,7 +415,7 @@
         </tbody>
     </table><br>
 
-    <h1 class="title">MRP Podpórka</h1>
+    <h1 id="support" class="title scroll">MRP Podpórka</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -504,7 +512,7 @@
         </tbody>
     </table><br>
 
-    <h1 class="title">MRP Uchwyty</h1>
+    <h1 id="handle" class="title scroll">MRP Uchwyty</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -600,5 +608,6 @@
         </tr>
         </tbody>
     </table><br>
+    </div> 
 </body>
 </html>

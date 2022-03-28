@@ -1,6 +1,6 @@
 //alert("aaa");
 
-const ApiURL = "http://localhost:5000"
+const ApiURL = "http://erp.oskarkozaczka.pl"
 var interval
 var result
 var wMRP = 0
