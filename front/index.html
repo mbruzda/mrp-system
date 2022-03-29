@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="test.js"></script>
     <title>MRP System</title>
 </head>
@@ -15,7 +16,7 @@
 <body>
 
     <!--<div class="loading">
-        <img src="arekgif.gif" alt="Loading..." />
+        <img src="img/Loading.gif" alt="Loading..." />
     </div>-->
     <div class="tabs is-centered is-boxed is-medium">
         <ul>
@@ -40,8 +41,8 @@
             </a>
           </li>
           <li>
-            <a href="#support">
-              <span>MRP Podpórka</span>
+            <a href="#frame">
+              <span>MRP Rama</span>
             </a>
           </li>
           <li>
@@ -123,7 +124,7 @@
                 <th>Taczka</th>
                 <th>Koło</th>
                 <th>Skrzynia ładunkowa</th>
-                <th>Podpórka</th>
+                <th>Rama</th>
                 <th>Uchwyty</th>
             </tr>
             </thead>
@@ -160,9 +161,15 @@
                 <td><input class="input is-small" id="cInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="hInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
+            <tr>
+                <th>Auto wypełnianie</th>
+                <td colspan="5"><div class="check"><input type="checkbox" id="check"><label for="check"></label></div></td>
+            </tr>
             </tbody>
         </table>
+        
         <input class="button button_css" type="button" value="Submit" onclick="sendData()">
+
     <h1><br></h1>
     <h1 id="ghp" class="title scroll">GHP</h1>
     <table class="table is-hoverable is-bordered center">
@@ -415,7 +422,7 @@
         </tbody>
     </table><br>
 
-    <h1 id="support" class="title scroll">MRP Podpórka</h1>
+    <h1 id="frame" class="title scroll">MRP Rama</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
