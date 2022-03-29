@@ -68,6 +68,7 @@ namespace API_ERP
 
                     if (_MRPDatalvl2.AutoPlanning && _MRPDatalvl2.NetRequirements[i] > _MRPDatalvl2.PlannedRelease[i]) // this is scenario when we can't produce enought and we need to order to meet the demand
                     {
+                        //SheduledReceipts
                         _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i] - _MRPDatalvl2.PlannedRelease[i];
                     }
                 }
