@@ -1,6 +1,6 @@
 //alert("aaa");
 
-const ApiURL = "http://erp.oskarkozaczka.pl"
+const ApiURL = "http://20.113.171.243"
 var interval
 var result
 var wMRP = 0
