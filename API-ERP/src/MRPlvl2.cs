@@ -45,10 +45,9 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
-            _MRPDatalvl2.GrossRequirements = FillGrossRequirementsTable(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, 2);
+            _MRPDatalvl2.GrossRequirements = FillGrossRequirements(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, 2);
             //ProjectedOnHand
-            _MRPDatalvl2.ProjectedOnHand[0] = _MRPDatalvl2.StartingInventory - _MRPDatalvl2.GrossRequirements[0] + _MRPDatalvl2.SheduledReceipts[0];
-            for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i] + _MRPDatalvl2.SheduledReceipts[i];
+            _MRPDatalvl2.ProjectedOnHand = FillProjectedOnHand(_MRPDatalvl2.ProjectedOnHand, _MRPDatalvl2.GrossRequirements, _MRPDatalvl2.SheduledReceipts, _MRPDatalvl2.StartingInventory);
 
             for (int i = 0; i < 10; i++)
             {
@@ -58,27 +57,28 @@ namespace API_ERP
                     _MRPDatalvl2.NetRequirements[i] = _MRPDatalvl2.ProjectedOnHand[i] * -1;
                 }
 
-                if (_MRPDatalvl2.NetRequirements[i] > 0)
+                if (_MRPDatalvl2.NetRequirements[i] == 0) continue;
+                
+                if (i > _MRPDatalvl1.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                 {
-                    if (i > _MRPDatalvl1.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
-                    {
-                        //PlannedRelease
-                        if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl2.LotSize;
-                        //PlannedReceipt
-                        if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl2.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
-                    }
-                    else
-                    {
-                        if (_MRPDatalvl2.AutoPlanning)
-                        {
-                            //SheduledReceipts
-                            _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
-                            _MRPDatalvl2.ProjectedOnHand[i] = 0;
-                        }
+                    //PlannedRelease
+                    if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl2.LotSize;
+                    //PlannedReceipt
+                    if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl2.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
 
+                    if (_MRPDatalvl2.AutoPlanning && _MRPDatalvl2.NetRequirements[i] > _MRPDatalvl2.PlannedRelease[i]) // this is scenario when we can't produce enought and we need to order to meet the demand
+                    {
+                        _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i] - _MRPDatalvl2.PlannedRelease[i];
                     }
-
                 }
+                else if (_MRPDatalvl2.AutoPlanning)
+                {
+                    //SheduledReceipts
+                    _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
+                    _MRPDatalvl2.ProjectedOnHand[i] = 0;
+                }
+
+                
 
                 //ProjectedOnHandCorrection
                 for (int x = 1; x < 10; x++) _MRPDatalvl2.ProjectedOnHand[x] = _MRPDatalvl2.ProjectedOnHand[x - 1] - _MRPDatalvl2.GrossRequirements[x] + _MRPDatalvl2.PlannedRelease[x] + _MRPDatalvl2.SheduledReceipts[x];

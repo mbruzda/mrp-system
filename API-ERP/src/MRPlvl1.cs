@@ -40,39 +40,35 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
-            _MRPData.GrossRequirements = FillGrossRequirementsTable(_MRPData.GrossRequirements, _GHPData.Production, 1);
+            _MRPData.GrossRequirements = FillGrossRequirements(_MRPData.GrossRequirements, _GHPData.Production, 1);
             //ProjectedOnHand
-            _MRPData.ProjectedOnHand[0] = _MRPData.StartingInventory - _MRPData.GrossRequirements[0] + _MRPData.SheduledReceipts[0]; 
-            for (int i = 1; i < 10; i++) _MRPData.ProjectedOnHand[i] = _MRPData.ProjectedOnHand[i - 1] - _MRPData.GrossRequirements[i] + _MRPData.SheduledReceipts[i];
+            _MRPData.ProjectedOnHand = FillProjectedOnHand(_MRPData.ProjectedOnHand, _MRPData.GrossRequirements, _MRPData.SheduledReceipts, _MRPData.StartingInventory);
 
             for (int i = 0; i < 10; i++)
             {
                 //NetRequirements
-                if (_MRPData.ProjectedOnHand[i] < 0)
+                if (_MRPData.ProjectedOnHand[i] < 0) _MRPData.NetRequirements[i] = _MRPData.ProjectedOnHand[i] * -1;
+
+                if (_MRPData.NetRequirements[i] == 0) continue;
+                
+                if (i > _MRPData.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                 {
-                    _MRPData.NetRequirements[i] = _MRPData.ProjectedOnHand[i] * -1;
+                    //PlannedRelease
+                    if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize;
+                    //PlannedReceipt
+                    if (_MRPData.PlannedRelease[i] > 0) _MRPData.PlannedReceipt[i - _MRPData.RealizationTime] = _MRPData.PlannedRelease[i];
+
+                    if (_MRPData.AutoPlanning && _MRPData.NetRequirements[i] > _MRPData.PlannedRelease[i]) // this is scenario when we can't produce enought and we need to order to meet the demand
+                    {
+                        _MRPData.SheduledReceipts[i] = _MRPData.NetRequirements[i] - _MRPData.PlannedRelease[i];
+                    }
+                    
                 }
-
-                if (_MRPData.NetRequirements[i] > 0)
+                else if (_MRPData.AutoPlanning)
                 {
-                    if (i > _MRPData.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
-                    {
-                        //PlannedRelease
-                        if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize;
-                        //PlannedReceipt
-                        if (_MRPData.PlannedRelease[i] > 0) _MRPData.PlannedReceipt[i - _MRPData.RealizationTime] = _MRPData.PlannedRelease[i];
-                    }
-                    else
-                    {
-                        if (_MRPData.AutoPlanning)
-                        {
-                            //SheduledReceipts
-                            _MRPData.SheduledReceipts[i] = _MRPData.NetRequirements[i];
-                            _MRPData.ProjectedOnHand[i] = 0;
-                        }
-  
-                    }
-
+                    //SheduledReceipts
+                    _MRPData.SheduledReceipts[i] = _MRPData.NetRequirements[i];
+                    _MRPData.ProjectedOnHand[i] = 0;
                 }
 
                 //ProjectedOnHandCorrection
