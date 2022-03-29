@@ -131,11 +131,11 @@
             <tbody>
             <tr>
                 <th>Czas realizacji</th>
-                <td><input class="input is-small" id="time" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="wTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="bTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="cTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="hTime" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input class="input is-small" id="time" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="wTime" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="bTime" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="cTime" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="hTime" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
             </tr>
             <tr>
                 <th>Wielkość partii</th>
@@ -163,6 +163,8 @@
             </tr>
             </tbody>
         </table>
+        <input type="checkbox" id="auto" checked>
+        <label>Automatyczne wypełnianie</label>
         <input class="button button_css" type="button" value="Submit" onclick="sendData()">
     <h1><br></h1>
     <h1 id="ghp" class="title scroll">GHP</h1>
