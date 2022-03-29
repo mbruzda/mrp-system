@@ -328,6 +328,17 @@ function ShowResult() {
   }
 }
 
+// Checkbox table cell toggle
+$(function() {
+  $('td').click(function() {
+    $(this).find(':checkbox').click();
+  });
+
+  $(":checkbox").click(function(e) {
+    e.stopPropagation();
+  });
+});
+
 function toCamel(o) {
   var newO, origKey, newKey, value
   if (o instanceof Array) {
