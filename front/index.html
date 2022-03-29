@@ -140,10 +140,10 @@
             <tr>
                 <th>Wielkość partii</th>
                 <td></td>
-                <td><input class="input is-small" id="wLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="bLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="cLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="hLotSize" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input class="input is-small" id="wLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="bLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="cLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
+                <td><input class="input is-small" id="hLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="1"/></td>
             </tr>
             <tr>
                 <th>Poziom BOM</th>
@@ -163,6 +163,8 @@
             </tr>
             </tbody>
         </table>
+        <input type="checkbox" id="auto" checked>
+        <label>Automatyczne wypełnianie</label>
         <input class="button button_css" type="button" value="Submit" onclick="sendData()">
     <h1><br></h1>
     <h1 id="ghp" class="title scroll">GHP</h1>
