@@ -124,8 +124,9 @@ function sendData(){
               xhrH.open('POST', ApiURL+'/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/' + document.getElementById("auto").checked, true)
               xhrH.setRequestHeader('content-type', 'application/json')
 
-              xhrH.send(JSON.stringify(result.replace(/["]/g,"'")))
-              console.log(JSON.stringify(result.replace(/["]/g,"'")))
+              var mrp2 = '"'+(JSON.stringify(cMRP)).replace(/["]/g,"'")+'"'
+              xhrH.send(mrp2)
+              console.log(mrp2)
 
               xhrH.addEventListener('readystatechange', function () {
                 if (this.readyState === this.DONE) {
@@ -152,9 +153,9 @@ function ShowResult() {
   if(wMRP != 0 && bMRP != 0 && cMRP != 0 && hMRP != 0){
     clearInterval(interval)
     result = JSON.parse(result)
-    console.log(result)
-    console.log(wMRP)
-    console.log(bMRP)
+    //console.log(result)
+    //console.log(wMRP)
+    //console.log(bMRP)
     console.log(cMRP)
     console.log(hMRP)
     for(var i =0; i<10; i++){
