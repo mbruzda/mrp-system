@@ -58,7 +58,7 @@ namespace API_ERP
                     if (i > _MRPData.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                     {
                         //PlannedRelease
-                        if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize > _MRPData.NetRequirements[i] ? _MRPData.LotSize : _MRPData.LotSize * 2;
+                        if (_MRPData.NetRequirements[i] > 0) _MRPData.PlannedRelease[i] = _MRPData.LotSize;
                         //PlannedReceipt
                         if (_MRPData.PlannedRelease[i] > 0) _MRPData.PlannedReceipt[i - _MRPData.RealizationTime] = _MRPData.PlannedRelease[i];
                     }
