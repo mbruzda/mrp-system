@@ -1,53 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="data" lang="en">
 
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="img/wheelbarrow.svg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="test.js"></script>
     <title>MRP System</title>
 </head>
 
 <body>
+
+    <!--<div class="loading">
+        <img src="img/Loading.gif" alt="Loading..." />
+    </div>-->
     <div class="tabs is-centered is-boxed is-medium">
         <ul>
-          <li class="is-active">
-            <a>
+          <li>
+            <a href="#data">
               <span>Dane</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#ghp">
               <span>GHP Table</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#wheel">
               <span>MRP Koło</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#tray">
               <span>MRP Skrzynia ładunkowa</span>
             </a>
           </li>
           <li>
-            <a>
-              <span>MRP Podpórka</span>
+            <a href="#frame">
+              <span>MRP Rama</span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#handle">
               <span>MRP Uchwyty</span>
             </a>
           </li>
         </ul>
     </div>
+    <div class="main">
+
+        <img src="img/wheelbarrow.svg" alt="wheelbarrow" class="img">
         <table class="table is-hoverable is-bordered center">
+
             <thead><tr>
                 <th>Tydzień</th>
                 <th>1</th>
@@ -90,7 +100,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table is-hoverable is-bordered center">
+        <!--<table class="table is-hoverable is-bordered center">
             <thead>
             <tr>
                 <th>Taczka</th>
@@ -107,14 +117,15 @@
                 <td><input class="input is-small" id="inventory"  min="0" oninput="validity.valid||(value='0');" value="0"/></td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
         <table class="table is-hoverable is-bordered center">
             <thead>
             <tr>
                 <th>Element</th>
+                <th>Taczka</th>
                 <th>Koło</th>
                 <th>Skrzynia ładunkowa</th>
-                <th>Podpórka</th>
+                <th>Rama</th>
                 <th>Uchwyty</th>
             </tr>
             </thead>
@@ -137,6 +148,7 @@
             </tr>
             <tr>
                 <th>Poziom BOM</th>
+                <td></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
                 <td><input class="input is-small" type="text" value="1" readonly></td>
@@ -150,11 +162,17 @@
                 <td><input class="input is-small" id="cInventory"  min="0" oninput="validity.valid||(value='0');" value="0"/></td>
                 <td><input class="input is-small" id="hInventory"  min="0" oninput="validity.valid||(value='0');" value="2"/></td>
             </tr>
+            <tr>
+                <th>Auto wypełnianie</th>
+                <td colspan="5"><div class="check"><input type="checkbox" id="auto"><label for="check"></label></div></td>
+            </tr>
             </tbody>
         </table>
+
         <input class="button button_css" type="button" value="Submit" onclick="sendData()">
+
     <h1><br></h1>
-    <h1 class="title">GHP</h1>
+    <h1 id="ghp" class="title scroll">GHP</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -211,7 +229,7 @@
         </tr>
         </tbody>
     </table><br>
-    <h1 class="title">MRP Koło</h1>
+    <h1 id="wheel" class="title scroll">MRP Koło</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -308,7 +326,7 @@
         </tbody>
     </table><br>
 
-    <h1 class="title">MRP Skrzynia ładunkowa</h1>
+    <h1 id="tray" class="title scroll">MRP Skrzynia ładunkowa</h1>
     <table class="table is-hoverable is-bordered center">
         <thead><tr>
             <th>Tydzień</th>
@@ -404,5 +422,200 @@
         </tr>
         </tbody>
     </table><br>
+
+    <h1 id="frame" class="title scroll">MRP Rama</h1>
+    <table class="table is-hoverable is-bordered center">
+        <thead><tr>
+            <th>Tydzień</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+            <th>Całkowite zapotrzebowanie</th>
+            <td><p id="cGrossRequirements1"></p></td>
+            <td><p id="cGrossRequirements2"></p></td>
+            <td><p id="cGrossRequirements3"></p></td>
+            <td><p id="cGrossRequirements4"></p></td>
+            <td><p id="cGrossRequirements5"></p></td>
+            <td><p id="cGrossRequirements6"></p></td>
+            <td><p id="cGrossRequirements7"></p></td>
+            <td><p id="cGrossRequirements8"></p></td>
+            <td><p id="cGrossRequirements9"></p></td>
+            <td><p id="cGrossRequirements10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane przyjęcia</th>
+            <td><p id="cScheduledReceipts1"></p></td>
+            <td><p id="cScheduledReceipts2"></p></td>
+            <td><p id="cScheduledReceipts3"></p></td>
+            <td><p id="cScheduledReceipts4"></p></td>
+            <td><p id="cScheduledReceipts5"></p></td>
+            <td><p id="cScheduledReceipts6"></p></td>
+            <td><p id="cScheduledReceipts7"></p></td>
+            <td><p id="cScheduledReceipts8"></p></td>
+            <td><p id="cScheduledReceipts9"></p></td>
+            <td><p id="cScheduledReceipts10"></p></td>
+        </tr>
+        <tr>
+            <th>Przewidywane na stanie</th>
+            <td><p id="cProjectedOnHand1"></p></td>
+            <td><p id="cProjectedOnHand2"></p></td>
+            <td><p id="cProjectedOnHand3"></p></td>
+            <td><p id="cProjectedOnHand4"></p></td>
+            <td><p id="cProjectedOnHand5"></p></td>
+            <td><p id="cProjectedOnHand6"></p></td>
+            <td><p id="cProjectedOnHand7"></p></td>
+            <td><p id="cProjectedOnHand8"></p></td>
+            <td><p id="cProjectedOnHand9"></p></td>
+            <td><p id="cProjectedOnHand10"></p></td>
+        </tr>
+        <tr>
+            <th>Zapotrzebowanie netto</th>
+            <td><p id="cNetRequirements1"></p></td>
+            <td><p id="cNetRequirements2"></p></td>
+            <td><p id="cNetRequirements3"></p></td>
+            <td><p id="cNetRequirements4"></p></td>
+            <td><p id="cNetRequirements5"></p></td>
+            <td><p id="cNetRequirements6"></p></td>
+            <td><p id="cNetRequirements7"></p></td>
+            <td><p id="cNetRequirements8"></p></td>
+            <td><p id="cNetRequirements9"></p></td>
+            <td><p id="cNetRequirements10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane zamówienia</th>
+            <td><p id="cPlannedReceipts1"></p></td>
+            <td><p id="cPlannedReceipts2"></p></td>
+            <td><p id="cPlannedReceipts3"></p></td>
+            <td><p id="cPlannedReceipts4"></p></td>
+            <td><p id="cPlannedReceipts5"></p></td>
+            <td><p id="cPlannedReceipts6"></p></td>
+            <td><p id="cPlannedReceipts7"></p></td>
+            <td><p id="cPlannedReceipts8"></p></td>
+            <td><p id="cPlannedReceipts9"></p></td>
+            <td><p id="cPlannedReceipts10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane przyjęcie zamówień</th>
+            <td><p id="cPlannedRelease1"></p></td>
+            <td><p id="cPlannedRelease2"></p></td>
+            <td><p id="cPlannedRelease3"></p></td>
+            <td><p id="cPlannedRelease4"></p></td>
+            <td><p id="cPlannedRelease5"></p></td>
+            <td><p id="cPlannedRelease6"></p></td>
+            <td><p id="cPlannedRelease7"></p></td>
+            <td><p id="cPlannedRelease8"></p></td>
+            <td><p id="cPlannedRelease9"></p></td>
+            <td><p id="cPlannedRelease10"></p></td>
+        </tr>
+        </tbody>
+    </table><br>
+
+    <h1 id="handle" class="title scroll">MRP Uchwyty</h1>
+    <table class="table is-hoverable is-bordered center">
+        <thead><tr>
+            <th>Tydzień</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+            <th>Całkowite zapotrzebowanie</th>
+            <td><p id="hGrossRequirements1"></p></td>
+            <td><p id="hGrossRequirements2"></p></td>
+            <td><p id="hGrossRequirements3"></p></td>
+            <td><p id="hGrossRequirements4"></p></td>
+            <td><p id="hGrossRequirements5"></p></td>
+            <td><p id="hGrossRequirements6"></p></td>
+            <td><p id="hGrossRequirements7"></p></td>
+            <td><p id="hGrossRequirements8"></p></td>
+            <td><p id="hGrossRequirements9"></p></td>
+            <td><p id="hGrossRequirements10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane przyjęcia</th>
+            <td><p id="hScheduledReceipts1"></p></td>
+            <td><p id="hScheduledReceipts2"></p></td>
+            <td><p id="hScheduledReceipts3"></p></td>
+            <td><p id="hScheduledReceipts4"></p></td>
+            <td><p id="hScheduledReceipts5"></p></td>
+            <td><p id="hScheduledReceipts6"></p></td>
+            <td><p id="hScheduledReceipts7"></p></td>
+            <td><p id="hScheduledReceipts8"></p></td>
+            <td><p id="hScheduledReceipts9"></p></td>
+            <td><p id="hScheduledReceipts10"></p></td>
+        </tr>
+        <tr>
+            <th>Przewidywane na stanie</th>
+            <td><p id="hProjectedOnHand1"></p></td>
+            <td><p id="hProjectedOnHand2"></p></td>
+            <td><p id="hProjectedOnHand3"></p></td>
+            <td><p id="hProjectedOnHand4"></p></td>
+            <td><p id="hProjectedOnHand5"></p></td>
+            <td><p id="hProjectedOnHand6"></p></td>
+            <td><p id="hProjectedOnHand7"></p></td>
+            <td><p id="hProjectedOnHand8"></p></td>
+            <td><p id="hProjectedOnHand9"></p></td>
+            <td><p id="hProjectedOnHand10"></p></td>
+        </tr>
+        <tr>
+            <th>Zapotrzebowanie netto</th>
+            <td><p id="hNetRequirements1"></p></td>
+            <td><p id="hNetRequirements2"></p></td>
+            <td><p id="hNetRequirements3"></p></td>
+            <td><p id="hNetRequirements4"></p></td>
+            <td><p id="hNetRequirements5"></p></td>
+            <td><p id="hNetRequirements6"></p></td>
+            <td><p id="hNetRequirements7"></p></td>
+            <td><p id="hNetRequirements8"></p></td>
+            <td><p id="hNetRequirements9"></p></td>
+            <td><p id="hNetRequirements10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane zamówienia</th>
+            <td><p id="hPlannedReceipts1"></p></td>
+            <td><p id="hPlannedReceipts2"></p></td>
+            <td><p id="hPlannedReceipts3"></p></td>
+            <td><p id="hPlannedReceipts4"></p></td>
+            <td><p id="hPlannedReceipts5"></p></td>
+            <td><p id="hPlannedReceipts6"></p></td>
+            <td><p id="hPlannedReceipts7"></p></td>
+            <td><p id="hPlannedReceipts8"></p></td>
+            <td><p id="hPlannedReceipts9"></p></td>
+            <td><p id="hPlannedReceipts10"></p></td>
+        </tr>
+        <tr>
+            <th>Planowane przyjęcie zamówień</th>
+            <td><p id="hPlannedRelease1"></p></td>
+            <td><p id="hPlannedRelease2"></p></td>
+            <td><p id="hPlannedRelease3"></p></td>
+            <td><p id="hPlannedRelease4"></p></td>
+            <td><p id="hPlannedRelease5"></p></td>
+            <td><p id="hPlannedRelease6"></p></td>
+            <td><p id="hPlannedRelease7"></p></td>
+            <td><p id="hPlannedRelease8"></p></td>
+            <td><p id="hPlannedRelease9"></p></td>
+            <td><p id="hPlannedRelease10"></p></td>
+        </tr>
+        </tbody>
+    </table><br>
+    </div> 
 </body>
 </html>

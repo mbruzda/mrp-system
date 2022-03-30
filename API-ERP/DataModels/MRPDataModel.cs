@@ -8,6 +8,8 @@
         public int[] NetRequirements { get; set; } = new int[10];
         public int[] PlannedReceipt { get; set; } = new int[10];
         public int[] PlannedRelease { get; set; } = new int[10];
+        public int[] Orders { get; set; } = new int[10];
+
         public int RealizationTime { get; set; } = 0;
         public int LotSize { get; set; } = 0;
         public int BOM { get; set; } = 0;

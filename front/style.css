@@ -1,7 +1,7 @@
-body {
-    margin-left: 20px;
-    margin-right: 20px;
+* {
+    scroll-behavior: smooth;
 }
+
 table {
     border-collapse: collapse;
     width: 90%;
@@ -41,3 +41,190 @@ input::-webkit-inner-spin-button {
     height: 50px;
     margin-left: 5%;
     }  
+
+    .loading {
+        position: fixed;
+        z-index: 99;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loading > img {
+        width: max-content;
+        height: 800px;
+    }
+    
+    .loading.hidden {
+        animation: fadeOut 1s;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes fadeOut {
+        100% {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    
+    .thumb {
+        height: 100px;
+        border: 1px solid black;
+        margin: 10px;
+    }.loading {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.loading.hidden {
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.thumb {
+    height: 100px;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.tabs {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    z-index:1;
+}
+
+.main {
+    margin-top: 80px;
+}
+
+.scroll {
+    scroll-margin-top: 2em;
+}
+
+.img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 120px;
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+html {
+    background-color: #F5F5F5
+}
+
+.check {
+	position: relative;
+	background: linear-gradient(90deg, #afafaf, #bebebe);
+	line-height: 0;
+	perspective: 400px;
+}
+
+.check input[type="checkbox"],
+.check label,
+.check label::before,
+.check label::after,
+.check {
+	appearance: none;
+	display: inline-block;
+	border-radius: 1rem;
+	border: 0;
+	transition: .35s ease-in-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.check label {
+	width: 2.2rem;
+	height: 1rem;
+	background: #d7d7d7;
+	overflow: hidden;
+}
+
+.check input[type="checkbox"] {
+	position: absolute;
+	z-index: 1;
+	width: .8rem;
+	height: .8rem;
+	top: .1rem;
+	left: .1rem;
+	background: linear-gradient(45deg, #dedede, #ffffff);
+	box-shadow: 0 6px 7px rgba(0,0,0,0.3);
+	outline: none;
+}
+
+.check input[type="checkbox"]:checked {
+	left: 1.3rem;
+}
+
+.check input[type="checkbox"]:checked + label {
+	background: transparent;
+}
+
+.check label::before,
+.check label::after {
+	content: "· ·";
+	position: absolute;
+	overflow: hidden;
+	left: .15rem;
+	top: .5rem;
+	height: 1rem;
+	letter-spacing: -.04rem;
+	color: #9b9b9b;
+	font-family: "Times New Roman", serif;
+	z-index: 2;
+	font-size: .6rem;
+	border-radius: 0;
+	transform-origin: 0 0 -.5rem;
+	backface-visibility: hidden;
+}
+
+.check label::after {
+	content: "●";
+	top: .65rem;
+	left: .3rem;
+	height: .1rem;
+	width: .35rem;
+	font-size: .2rem;
+	transform-origin: 0 0 -.4rem;
+}
+
+.check input[type="checkbox"]:checked + label::before,
+.check input[type="checkbox"]:checked + label::after {
+	left: 1.55rem;
+	top: .4rem;
+	line-height: .1rem;
+	transform: rotateY(360deg);
+}
+
+.check input[type="checkbox"]:checked + label::after {
+	height: .16rem;
+	top: .55rem;
+	left: 1.6rem;
+	font-size: .6rem;
+	line-height: 0;
+}
