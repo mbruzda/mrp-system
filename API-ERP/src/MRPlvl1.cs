@@ -6,8 +6,8 @@ namespace API_ERP
 {
     public class MRPlvl1 : ERP,IERP
     {
-        public GHPDataModel _GHPData;
-        public MRPDataModel _MRPData;
+        private GHPDataModel _GHPData;
+        private MRPDataModel _MRPData;
 
         public MRPlvl1()
         {
@@ -39,6 +39,8 @@ namespace API_ERP
 
         public void FillTable()
         {
+            //Orders
+            _MRPData.SheduledReceipts = FillOrders(_MRPData.SheduledReceipts, _GHPData.Orders);
             //GrossRequirements
             _MRPData.GrossRequirements = FillGrossRequirements(_MRPData.GrossRequirements, _GHPData.Production, 1);
             //ProjectedOnHand
@@ -63,7 +65,6 @@ namespace API_ERP
                         //SheduledReceipts
                         _MRPData.SheduledReceipts[i] = _MRPData.NetRequirements[i] - _MRPData.PlannedRelease[i];
                     }
-                    
                 }
                 else if (_MRPData.AutoPlanning)
                 {
@@ -78,10 +79,9 @@ namespace API_ERP
             }
         }
 
-
         public string DataToJson()
         {
-            return JsonConvert.SerializeObject(_MRPData);
+            return DataToJson<MRPDataModel>(_MRPData);
         }
     }
 }

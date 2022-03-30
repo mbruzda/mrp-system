@@ -56,7 +56,7 @@ namespace API_ERP.Controllers
             try
             {
                 _mrplvl2.SetDataFromJson(jsonString, RT, LS, BOM, SI, AP);
-              //  _mrplvl2.DataCheck();
+              //_mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
             }

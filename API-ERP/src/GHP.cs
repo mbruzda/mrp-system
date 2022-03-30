@@ -1,11 +1,12 @@
 ﻿using API_ERP.DataModels;
+using API_ERP.Interfaces;
 using Newtonsoft.Json;
 
 namespace API_ERP
 {
-    public class GHP : IERP
+    public class GHP : ERP,IERP
     {
-        public GHPDataModel _Data;
+        private GHPDataModel _Data;
 
         public GHP()
         {
@@ -47,7 +48,7 @@ namespace API_ERP
 
         public string DataToJson()
         {
-            return JsonConvert.SerializeObject(_Data);
+            return DataToJson<GHPDataModel>(_Data);
         }
     }
 }
