@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using API_ERP;
-using System.Text.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace API_ERP.Controllers
 {
@@ -19,8 +16,13 @@ namespace API_ERP.Controllers
             try
             {
                 _ghp.SetDataFromJson(jsonString);
+               // _ghp.DataCheck();
                 _ghp.FillTable();
-                return _ghp.DataToJson();
+                return _ghp.DataToJson(_ghp.);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {
@@ -34,8 +36,13 @@ namespace API_ERP.Controllers
             try
             {
                 _mrplvl1.SetDataFromJson(jsonString, RT, LS, BOM, SI , AP);
+               // _mrplvl1.DataCheck();
                 _mrplvl1.FillTable();
                 return _mrplvl1.DataToJson();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {
@@ -49,8 +56,33 @@ namespace API_ERP.Controllers
             try
             {
                 _mrplvl2.SetDataFromJson(jsonString, RT, LS, BOM, SI, AP);
+              //  _mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0:\n\n" + ex;
+            }
+            catch (Exception ex)
+            {
+                return "Error:" + ex;
+            }
+        }
+
+        [HttpPost("GetMRPlvl2Table/{RT}/{LS}/{BOM}/{SI}/{AP}")]
+        public string RecalculateTable([FromBody] string jsonString)
+        {
+            try
+            {
+                _mrplvl2.SetDataFromJson(jsonString;
+                //  _mrplvl2.DataCheck();
+                _mrplvl2.FillTable();
+                return _mrplvl2.DataToJson();
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0:\n\n" + ex;
             }
             catch (Exception ex)
             {

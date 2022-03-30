@@ -5,9 +5,9 @@ namespace API_ERP
 {
     public class MRPlvl2 : IERP
     {
-        public MRPDataModel _MRPDatalvl1;
-        public MRPDataModel _MRPDatalvl2;
-        public int _multiplier;
+        private MRPDataModel _MRPDatalvl1;
+        private MRPDataModel _MRPDatalvl2;
+        private int _multiplier;
 
         public MRPlvl2()
         {
@@ -30,7 +30,11 @@ namespace API_ERP
         public void FillTable()
         {
             //GrossRequirements
+<<<<<<< Updated upstream
             for (int i = _MRPDatalvl1.RealizationTime; i < 10; i++) _MRPDatalvl2.GrossRequirements[i] = _MRPDatalvl1.PlannedReceipt[i] * _multiplier;
+=======
+            _MRPDatalvl2.GrossRequirements = FillGrossRequirements(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, _multiplier);
+>>>>>>> Stashed changes
             //ProjectedOnHand
             _MRPDatalvl2.ProjectedOnHand[0] = _MRPDatalvl2.StartingInventory; for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i];
 
@@ -78,7 +82,7 @@ namespace API_ERP
 
         public string DataToJson()
         {
-            return JsonConvert.SerializeObject(_MRPDatalvl2);
+            return DataToJson<MRPDataModel>(_MRPDatalvl2);
         }
     }
 

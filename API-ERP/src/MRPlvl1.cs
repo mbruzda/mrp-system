@@ -5,8 +5,8 @@ namespace API_ERP
 {
     public class MRPlvl1 : IERP
     {
-        public GHPDataModel _GHPData;
-        public MRPDataModel _MRPData;
+        private GHPDataModel _GHPData;
+        private MRPDataModel _MRPData;
 
         public MRPlvl1()
         {
@@ -77,7 +77,7 @@ namespace API_ERP
 
         public string DataToJson()
         {
-            return JsonConvert.SerializeObject(_MRPData);
+            return DataToJson<MRPDataModel>(_MRPData);
         }
     }
 }
