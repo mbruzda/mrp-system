@@ -28,20 +28,6 @@ namespace API_ERP
             _MRPDatalvl2.AutoPlanning = AP;
         }
 
-        public void DataCheck()
-        {
-            foreach (var num in _MRPDatalvl1.SheduledReceipts) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _MRPDatalvl1.PlannedRelease) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _MRPDatalvl1.PlannedReceipt) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _MRPDatalvl1.GrossRequirements) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _MRPDatalvl1.ProjectedOnHand) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _MRPDatalvl1.NetRequirements) if (num < 0) throw new ArgumentOutOfRangeException();
-
-            if (_MRPDatalvl2.RealizationTime < 0) throw new ArgumentOutOfRangeException();
-            if (_MRPDatalvl2.LotSize < 0) throw new ArgumentOutOfRangeException();
-            if (_MRPDatalvl2.StartingInventory < 0) throw new ArgumentOutOfRangeException();
-        }
-
         public void FillTable()
         {
             //Orders

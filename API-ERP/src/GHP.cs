@@ -19,16 +19,6 @@ namespace API_ERP
             _Data = Data;
         }
 
-        public void DataCheck()
-        {
-            foreach (var num in _Data.SalesForecast) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _Data.Production) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _Data.Inventory) if (num < 0) throw new ArgumentOutOfRangeException();
-
-            if (_Data.RealizationTime < 0) throw new ArgumentOutOfRangeException();
-            if (_Data.StartingInventory < 0) throw new ArgumentOutOfRangeException();
-        }
-
         public void FillTable()
         {
             _Data.Inventory[0] = _Data.StartingInventory - _Data.SalesForecast[0];

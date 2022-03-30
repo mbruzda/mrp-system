@@ -26,17 +26,6 @@ namespace API_ERP
             _MRPData.AutoPlanning = AP;
         }
 
-        public void DataCheck()
-        {
-            foreach (var num in _GHPData.SalesForecast) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _GHPData.Production) if (num < 0) throw new ArgumentOutOfRangeException();
-            foreach (var num in _GHPData.Inventory) if (num < 0) throw new ArgumentOutOfRangeException();
-
-            if (_MRPData.RealizationTime < 0) throw new ArgumentOutOfRangeException();
-            if (_MRPData.LotSize < 0) throw new ArgumentOutOfRangeException();
-            if (_MRPData.StartingInventory < 0) throw new ArgumentOutOfRangeException();
-        }
-
         public void FillTable()
         {
             //Orders
