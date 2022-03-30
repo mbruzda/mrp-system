@@ -18,11 +18,7 @@ namespace API_ERP.Controllers
                 _ghp.SetDataFromJson(jsonString);
                // _ghp.DataCheck();
                 _ghp.FillTable();
-                return _ghp.DataToJson(_ghp.);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return "Value cant be less that 0:\n\n" + ex;
+                return _ghp.DataToJson();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -61,26 +57,6 @@ namespace API_ERP.Controllers
             {
                 _mrplvl2.SetDataFromJson(jsonString, RT, LS, BOM, SI, AP);
               //_mrplvl2.DataCheck();
-                _mrplvl2.FillTable();
-                return _mrplvl2.DataToJson();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return "Value cant be less that 0:\n\n" + ex;
-            }
-            catch (Exception ex)
-            {
-                return "Error:" + ex;
-            }
-        }
-
-        [HttpPost("RecalculateTable")]
-        public string RecalculateTable([FromBody] string jsonString)
-        {
-            try
-            {
-                _mrplvl2.SetDataFromJson(jsonString);
-                //_mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
             }

@@ -5,6 +5,14 @@ namespace API_ERP.Interfaces
 {
     public class ERP
     {
+
+        public int[] FillOrders(int[] SheduledReceipts, int[] Orders)
+        {
+            for (int i = 0; i < 10; i++) SheduledReceipts[i] = Orders[i];
+            return SheduledReceipts;
+
+        }
+
         public int[] FillGrossRequirements(int[] GrossRequirementsTable, int[] SupplyTTable, int mulitplier = 1)
         {
             for (int i = 0; i < 10; i++) GrossRequirementsTable[i] = SupplyTTable[i] * mulitplier;

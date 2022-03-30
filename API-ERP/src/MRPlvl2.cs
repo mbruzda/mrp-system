@@ -44,19 +44,17 @@ namespace API_ERP
 
         public void FillTable()
         {
+            //Orders
+            _MRPDatalvl2.SheduledReceipts = FillOrders(_MRPDatalvl2.SheduledReceipts, _MRPDatalvl1.Orders);
             //GrossRequirements
             _MRPDatalvl2.GrossRequirements = FillGrossRequirements(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, _multiplier);
-
             //ProjectedOnHand
             _MRPDatalvl2.ProjectedOnHand = FillProjectedOnHand(_MRPDatalvl2.ProjectedOnHand, _MRPDatalvl2.GrossRequirements, _MRPDatalvl2.SheduledReceipts, _MRPDatalvl2.StartingInventory);
 
             for (int i = 0; i < 10; i++)
             {
                 //NetRequirements
-                if (_MRPDatalvl2.ProjectedOnHand[i] < 0)
-                {
-                    _MRPDatalvl2.NetRequirements[i] = _MRPDatalvl2.ProjectedOnHand[i] * -1;
-                }
+                if (_MRPDatalvl2.ProjectedOnHand[i] < 0) _MRPDatalvl2.NetRequirements[i] = _MRPDatalvl2.ProjectedOnHand[i] * -1;
 
                 if (_MRPDatalvl2.NetRequirements[i] == 0) continue;
                 
@@ -79,8 +77,6 @@ namespace API_ERP
                     _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
                     _MRPDatalvl2.ProjectedOnHand[i] = 0;
                 }
-
-                
 
                 //ProjectedOnHandCorrection
                 for (int x = 1; x < 10; x++) _MRPDatalvl2.ProjectedOnHand[x] = _MRPDatalvl2.ProjectedOnHand[x - 1] - _MRPDatalvl2.GrossRequirements[x] + _MRPDatalvl2.PlannedRelease[x] + _MRPDatalvl2.SheduledReceipts[x];
