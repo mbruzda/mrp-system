@@ -1,0 +1,19 @@
+name: scp files
+
+on: [push]
+
+jobs:
+  push_front:
+    name: scp
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.VIE_HOST }}
+        username: ${{ secrets.VIE_USER }}
+        password: ${{ secrets.VIE_PASS }}
+        port: 22
+        source: "front/*"
+        target: "public_html/web"

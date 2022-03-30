@@ -1,9 +1,10 @@
 ﻿using API_ERP.DataModels;
+using API_ERP.Interfaces;
 using Newtonsoft.Json;
 
 namespace API_ERP
 {
-    public class MRPlvl2 : IERP
+    public class MRPlvl2 : ERP,IERP
     {
         private MRPDataModel _MRPDatalvl1;
         private MRPDataModel _MRPDatalvl2;
@@ -20,63 +21,70 @@ namespace API_ERP
         {
             var MRPData = JsonConvert.DeserializeObject<MRPDataModel>(jsonString);
             _MRPDatalvl1 = MRPData;
-            _MRPDatalvl1.RealizationTime = RT;
-            _MRPDatalvl1.LotSize = LS;
-            _MRPDatalvl1.BOM = BOM;
-            _MRPDatalvl1.StartingInventory = SI;
-            _MRPDatalvl1.AutoPlanning = AP;
+            _MRPDatalvl2.RealizationTime = RT;
+            _MRPDatalvl2.LotSize = LS;
+            _MRPDatalvl2.BOM = BOM;
+            _MRPDatalvl2.StartingInventory = SI;
+            _MRPDatalvl2.AutoPlanning = AP;
+        }
+
+        public void DataCheck()
+        {
+            foreach (var num in _MRPDatalvl1.SheduledReceipts) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _MRPDatalvl1.PlannedRelease) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _MRPDatalvl1.PlannedReceipt) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _MRPDatalvl1.GrossRequirements) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _MRPDatalvl1.ProjectedOnHand) if (num < 0) throw new ArgumentOutOfRangeException();
+            foreach (var num in _MRPDatalvl1.NetRequirements) if (num < 0) throw new ArgumentOutOfRangeException();
+
+            if (_MRPDatalvl2.RealizationTime < 0) throw new ArgumentOutOfRangeException();
+            if (_MRPDatalvl2.LotSize < 0) throw new ArgumentOutOfRangeException();
+            if (_MRPDatalvl2.StartingInventory < 0) throw new ArgumentOutOfRangeException();
         }
 
         public void FillTable()
         {
             //GrossRequirements
-<<<<<<< Updated upstream
-            for (int i = _MRPDatalvl1.RealizationTime; i < 10; i++) _MRPDatalvl2.GrossRequirements[i] = _MRPDatalvl1.PlannedReceipt[i] * _multiplier;
-=======
             _MRPDatalvl2.GrossRequirements = FillGrossRequirements(_MRPDatalvl2.GrossRequirements, _MRPDatalvl1.PlannedReceipt, _multiplier);
->>>>>>> Stashed changes
-            //ProjectedOnHand
-            _MRPDatalvl2.ProjectedOnHand[0] = _MRPDatalvl2.StartingInventory; for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i];
 
-            var finish = false;
-            while (!finish)
+            //ProjectedOnHand
+            _MRPDatalvl2.ProjectedOnHand = FillProjectedOnHand(_MRPDatalvl2.ProjectedOnHand, _MRPDatalvl2.GrossRequirements, _MRPDatalvl2.SheduledReceipts, _MRPDatalvl2.StartingInventory);
+
+            for (int i = 0; i < 10; i++)
             {
                 //NetRequirements
-                for (int i = 0; i < 10; i++)
+                if (_MRPDatalvl2.ProjectedOnHand[i] < 0)
                 {
-                    if (_MRPDatalvl2.ProjectedOnHand[i] < 0)
-                    {
-                        _MRPDatalvl2.NetRequirements[i] = _MRPDatalvl2.ProjectedOnHand[i] * -1;
-                        break;
-                    }
-                    if (i == 9) finish = true;
+                    _MRPDatalvl2.NetRequirements[i] = _MRPDatalvl2.ProjectedOnHand[i] * -1;
                 }
 
-                for (int i = 0; i < 10; i++)
+                if (_MRPDatalvl2.NetRequirements[i] == 0) continue;
+                
+                if (i > _MRPDatalvl1.RealizationTime) //if this will be true we can start a production, otherwise we need to place an order
                 {
-                    if (_MRPDatalvl2.NetRequirements[i] > 0)
-                    {
-                        if (i > _MRPDatalvl2.RealizationTime - 1) //if this will be true we can start a production, otherwise we need to place an order
-                        {
-                            //PlannedRelease
-                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl1.LotSize > _MRPDatalvl2.NetRequirements[i] ? _MRPDatalvl1.LotSize : _MRPDatalvl1.LotSize * 2;
-                            //PlannedReceipt
-                            for (int x = 0; x < 10; x++) if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl1.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
-                        }
-                        else
-                        {
-                            if (_MRPDatalvl1.AutoPlanning)
-                            {
-                                //SheduledReceipts
-                                _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.GrossRequirements[i] - _MRPDatalvl2.ProjectedOnHand[i];
-                                _MRPDatalvl2.ProjectedOnHand[i] = 0;
-                            }
-                        }
+                    //PlannedRelease
+                    if (_MRPDatalvl2.NetRequirements[i] > 0) _MRPDatalvl2.PlannedRelease[i] = _MRPDatalvl2.LotSize;
+                    //PlannedReceipt
+                    if (_MRPDatalvl2.PlannedRelease[i] > 0) _MRPDatalvl2.PlannedReceipt[i - _MRPDatalvl2.RealizationTime] = _MRPDatalvl2.PlannedRelease[i];
 
+                    if (_MRPDatalvl2.AutoPlanning && _MRPDatalvl2.NetRequirements[i] > _MRPDatalvl2.PlannedRelease[i]) // this is scenario when we can't produce enought and we need to order to meet the demand
+                    {
+                        //SheduledReceipts
+                        _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i] - _MRPDatalvl2.PlannedRelease[i];
                     }
                 }
+                else if (_MRPDatalvl2.AutoPlanning)
+                {
+                    //SheduledReceipts
+                    _MRPDatalvl2.SheduledReceipts[i] = _MRPDatalvl2.NetRequirements[i];
+                    _MRPDatalvl2.ProjectedOnHand[i] = 0;
+                }
+
+                
+
                 //ProjectedOnHandCorrection
-                for (int i = 1; i < 10; i++) _MRPDatalvl2.ProjectedOnHand[i] = _MRPDatalvl2.ProjectedOnHand[i - 1] - _MRPDatalvl2.GrossRequirements[i] + _MRPDatalvl2.PlannedRelease[i];
+                for (int x = 1; x < 10; x++) _MRPDatalvl2.ProjectedOnHand[x] = _MRPDatalvl2.ProjectedOnHand[x - 1] - _MRPDatalvl2.GrossRequirements[x] + _MRPDatalvl2.PlannedRelease[x] + _MRPDatalvl2.SheduledReceipts[x];
+
             }
         }
 

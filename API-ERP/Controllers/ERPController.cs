@@ -24,6 +24,10 @@ namespace API_ERP.Controllers
             {
                 return "Value cant be less that 0:\n\n" + ex;
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return "Value cant be less that 0:\n\n" + ex;
+            }
             catch (Exception ex)
             {
                 return "Error:" + ex;
@@ -70,12 +74,12 @@ namespace API_ERP.Controllers
             }
         }
 
-        [HttpPost("GetMRPlvl2Table/{RT}/{LS}/{BOM}/{SI}/{AP}")]
+        [HttpPost("RecalculateTable")]
         public string RecalculateTable([FromBody] string jsonString)
         {
             try
             {
-                _mrplvl2.SetDataFromJson(jsonString;
+                _mrplvl2.SetDataFromJson(jsonString);
                 //  _mrplvl2.DataCheck();
                 _mrplvl2.FillTable();
                 return _mrplvl2.DataToJson();
