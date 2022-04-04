@@ -26,6 +26,9 @@ function sendData(){
         }
       })
     })
+
+    console.log(result)
+
     wMRP = 0
     bMRP = 0
     cMRP = 0
@@ -66,9 +69,9 @@ function sendData(){
       if (this.readyState === this.DONE) {
         try{
           result = toCamel(JSON.parse(this.response))
-          result = JSON.stringify(result)
+          
         
-          console.log(JSON.stringify(result.replace(/["]/g,"'")))
+           //console.log(JSON.stringify(result.replace(/["]/g,"'")))
         }catch{
           console.log(this.response)
           //Here will be code that will make popup with response message
@@ -78,8 +81,13 @@ function sendData(){
         xhrW.withCredentials = false;
         xhrW.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrW.setRequestHeader('content-type', 'application/json')
+
+        var wheelResult = result
         
-        xhrW.send(JSON.stringify(result.replace(/["]/g,"'")))
+        FillOrders("wheel", wheelResult)
+        console.log(wheelResult)
+        wheelResult = JSON.stringify(wheelResult)
+        xhrW.send(JSON.stringify(wheelResult.replace(/["]/g,"'")))
 
         xhrW.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -95,7 +103,12 @@ function sendData(){
         xhrB.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrB.setRequestHeader('content-type', 'application/json')
 
-        xhrB.send(JSON.stringify(result.replace(/["]/g,"'")))
+        var boxResult = result
+
+        FillOrders("box", boxResult)
+        console.log(boxResult)
+        boxResult = JSON.stringify(boxResult)
+        xhrB.send(JSON.stringify(boxResult.replace(/["]/g,"'")))
 
         xhrB.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -111,7 +124,10 @@ function sendData(){
         xhrC.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("cTime").value+'/'+document.getElementById("cLotSize").value+'/1/'+document.getElementById("cInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrC.setRequestHeader('content-type', 'application/json')
 
-        xhrC.send(JSON.stringify(result.replace(/["]/g,"'")))
+        var cageResult = result
+        FillOrders("cage", cageResult)
+        cageResult = JSON.stringify(cageResult)
+        xhrC.send(JSON.stringify(cageResult.replace(/["]/g,"'")))
 
         xhrC.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -123,8 +139,9 @@ function sendData(){
               xhrH.withCredentials = false;
               xhrH.open('POST', ApiURL+'/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/' + document.getElementById("auto").checked, true)
               xhrH.setRequestHeader('content-type', 'application/json')
-
-              var mrp2 = '"'+(JSON.stringify(cMRP)).replace(/["]/g,"'")+'"'
+              var handlesResult = cMRP
+              FillOrders("handles", handlesResult)
+              var mrp2 = '"'+(JSON.stringify(handlesResult)).replace(/["]/g,"'")+'"'
               xhrH.send(mrp2)
               console.log(mrp2)
 
@@ -152,7 +169,7 @@ function ShowResult() {
 
   if(wMRP != 0 && bMRP != 0 && cMRP != 0 && hMRP != 0){
     clearInterval(interval)
-    result = JSON.parse(result)
+    //result = JSON.parse(result)
     //console.log(result)
     //console.log(wMRP)
     //console.log(bMRP)
@@ -204,13 +221,13 @@ function ShowResult() {
         document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = wMRP.ProjectedOnHand[i]
       }
       else {
-      document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = "";
+      document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = "0";
       }
       if(wMRP.SheduledReceipts[i]!=0){
-        document.getElementById("wScheduledReceipts"+(i+1)).innerHTML = wMRP.SheduledReceipts[i]
+        document.getElementById("wScheduledReceipts"+(i+1)).value = wMRP.SheduledReceipts[i]
       }
       else {
-      document.getElementById("wScheduledReceipts"+(i+1)).innerHTML = "";
+      document.getElementById("wScheduledReceipts"+(i+1)).value = "";
       }
 
 
@@ -242,13 +259,13 @@ function ShowResult() {
         document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = bMRP.ProjectedOnHand[i]
       }
       else {
-      document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = "";
+      document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = "0";
       }
       if(bMRP.SheduledReceipts[i]!=0){
-        document.getElementById("bScheduledReceipts"+(i+1)).innerHTML = bMRP.SheduledReceipts[i]
+        document.getElementById("bScheduledReceipts"+(i+1)).value = bMRP.SheduledReceipts[i]
       }
       else {
-      document.getElementById("bScheduledReceipts"+(i+1)).innerHTML = "";
+      document.getElementById("bScheduledReceipts"+(i+1)).value = "";
       }
 
       if(cMRP.GrossRequirements[i]!=0){
@@ -279,13 +296,13 @@ function ShowResult() {
         document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = cMRP.ProjectedOnHand[i]
       }
       else {
-      document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = "";
+      document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = "0";
       }
       if(cMRP.SheduledReceipts[i]!=0){
-        document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = cMRP.SheduledReceipts[i]
+        document.getElementById("cScheduledReceipts"+(i+1)).value = cMRP.SheduledReceipts[i]
       }
       else {
-      document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = "";
+      document.getElementById("cScheduledReceipts"+(i+1)).value = "";
       }
 
       if(hMRP.GrossRequirements[i]!=0){
@@ -316,15 +333,52 @@ function ShowResult() {
         document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = hMRP.ProjectedOnHand[i]
       }
       else {
-      document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = "";
+      document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = "0";
       }
       if(hMRP.SheduledReceipts[i]!=0){
-        document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = hMRP.SheduledReceipts[i]
+        document.getElementById("hScheduledReceipts"+(i+1)).value = hMRP.SheduledReceipts[i]
       }
       else {
-      document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = "";
+      document.getElementById("hScheduledReceipts"+(i+1)).value = "";
       }
     }
+  }
+}
+
+function FillOrders(name, json){
+  switch(name){
+    case "wheel":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("wScheduledReceipts"+(i+1)).value
+        if(document.getElementById("wScheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "box":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("bScheduledReceipts"+(i+1)).value
+        if(document.getElementById("bScheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "cage":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("cScheduledReceipts"+(i+1)).value
+        if(document.getElementById("cScheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "handles":
+      for(var i = 0; i < 10; i++){
+        json.Orders[i] = document.getElementById("hScheduledReceipts"+(i+1)).value
+        if(document.getElementById("hScheduledReceipts"+(i+1)).value == ''){
+          json.Orders[i] = 0
+        }
+      }
+      break;
   }
 }
 
