@@ -185,12 +185,29 @@ function ShowResult() {
       tableLetters.forEach(function(letter){
         tableRows.forEach(function(row){
           eval('var tableMRP = ' + letter + 'MRP.' + row)
-          if(tableMRP[i]!=0){
-            document.getElementById(letter + row +(i+1)).innerHTML = tableMRP[i]
+          if(row == "SheduledReceipts"){
+            if(tableMRP[i]!=0){
+              document.getElementById(letter + row +(i+1)).value = tableMRP[i]
+            }
+            else {
+            document.getElementById(letter + row +(i+1)).value = 0;
+            }
           }
-          else {
-          document.getElementById(letter + row +(i+1)).innerHTML = "";
+          else{
+            if(tableMRP[i]!=0){
+              document.getElementById(letter + row +(i+1)).innerHTML = tableMRP[i]
+            }
+            else {
+              if(row = "ProjectedOnHand"){
+                document.getElementById(letter + row +(i+1)).innerHTML = "0";
+              }
+              else{
+                document.getElementById(letter + row +(i+1)).innerHTML = "";
+              }
+              
+            }
           }
+          
         })
       })
     }
