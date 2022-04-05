@@ -18,16 +18,13 @@ window.addEventListener("load", function () {
 
 function sendData(){
     const numInputs = document.querySelectorAll('input[type=number]')
-
-    numInputs.forEach(function(input) {
-      input.addEventListener('change', function(e) {
-        if (e.target.value == '') {
-          e.target.value = 0
-        }
-      })
-    })
-
-    console.log(result)
+    numInputs.forEach(changeValue) 
+    
+    function changeValue(input){
+      if(input.value == ""){
+        input.value = 0
+      }
+    }
 
     wMRP = 0
     bMRP = 0
@@ -85,7 +82,6 @@ function sendData(){
         var wheelResult = result
         
         FillOrders("wheel", wheelResult)
-        console.log(wheelResult)
         wheelResult = JSON.stringify(wheelResult)
         xhrW.send(JSON.stringify(wheelResult.replace(/["]/g,"'")))
 
@@ -106,7 +102,6 @@ function sendData(){
         var boxResult = result
 
         FillOrders("box", boxResult)
-        console.log(boxResult)
         boxResult = JSON.stringify(boxResult)
         xhrB.send(JSON.stringify(boxResult.replace(/["]/g,"'")))
 
@@ -143,7 +138,6 @@ function sendData(){
               FillOrders("handles", handlesResult)
               var mrp2 = '"'+(JSON.stringify(handlesResult)).replace(/["]/g,"'")+'"'
               xhrH.send(mrp2)
-              console.log(mrp2)
 
               xhrH.addEventListener('readystatechange', function () {
                 if (this.readyState === this.DONE) {
@@ -169,12 +163,8 @@ function ShowResult() {
 
   if(wMRP != 0 && bMRP != 0 && cMRP != 0 && hMRP != 0){
     clearInterval(interval)
-    //result = JSON.parse(result)
-    //console.log(result)
-    //console.log(wMRP)
-    //console.log(bMRP)
-    console.log(cMRP)
-    console.log(hMRP)
+    var tableLetters = ["w", "b", "c", "h"]
+    var tableRows = ["GrossRequirements", "NetRequirements", "PlannedReceipt", "PlannedRelease", "ProjectedOnHand", "SheduledReceipts"]
     for(var i =0; i<10; i++){
       if(result.salesForecast[i]!=0){
         document.getElementById("saleTable"+(i+1)).innerHTML = result.salesForecast[i]
@@ -192,155 +182,17 @@ function ShowResult() {
       }
       document.getElementById("inventoryTable"+(i+1)).innerHTML = result.inventory[i]
 
-
-      if(wMRP.GrossRequirements[i]!=0){
-        document.getElementById("wGrossRequirements"+(i+1)).innerHTML = wMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("wGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.NetRequirements[i]!=0){
-        document.getElementById("wNetRequirements"+(i+1)).innerHTML = wMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("wNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.PlannedReceipt[i]!=0){
-        document.getElementById("wPlannedReceipts"+(i+1)).innerHTML = wMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("wPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.PlannedRelease[i]!=0){
-        document.getElementById("wPlannedRelease"+(i+1)).innerHTML = wMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("wPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = wMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = "0";
-      }
-      if(wMRP.SheduledReceipts[i]!=0){
-        document.getElementById("wScheduledReceipts"+(i+1)).value = wMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("wScheduledReceipts"+(i+1)).value = "";
-      }
-
-
-      if(bMRP.GrossRequirements[i]!=0){
-        document.getElementById("bGrossRequirements"+(i+1)).innerHTML = bMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("bGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.NetRequirements[i]!=0){
-        document.getElementById("bNetRequirements"+(i+1)).innerHTML = bMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("bNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.PlannedReceipt[i]!=0){
-        document.getElementById("bPlannedReceipts"+(i+1)).innerHTML = bMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("bPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.PlannedRelease[i]!=0){
-        document.getElementById("bPlannedRelease"+(i+1)).innerHTML = bMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("bPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = bMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = "0";
-      }
-      if(bMRP.SheduledReceipts[i]!=0){
-        document.getElementById("bScheduledReceipts"+(i+1)).value = bMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("bScheduledReceipts"+(i+1)).value = "";
-      }
-
-      if(cMRP.GrossRequirements[i]!=0){
-        document.getElementById("cGrossRequirements"+(i+1)).innerHTML = cMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("cGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.NetRequirements[i]!=0){
-        document.getElementById("cNetRequirements"+(i+1)).innerHTML = cMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("cNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.PlannedReceipt[i]!=0){
-        document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = cMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.PlannedRelease[i]!=0){
-        document.getElementById("cPlannedRelease"+(i+1)).innerHTML = cMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("cPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = cMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = "0";
-      }
-      if(cMRP.SheduledReceipts[i]!=0){
-        document.getElementById("cScheduledReceipts"+(i+1)).value = cMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("cScheduledReceipts"+(i+1)).value = "";
-      }
-
-      if(hMRP.GrossRequirements[i]!=0){
-        document.getElementById("hGrossRequirements"+(i+1)).innerHTML = hMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("hGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.NetRequirements[i]!=0){
-        document.getElementById("hNetRequirements"+(i+1)).innerHTML = hMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("hNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.PlannedReceipt[i]!=0){
-        document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = hMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.PlannedRelease[i]!=0){
-        document.getElementById("hPlannedRelease"+(i+1)).innerHTML = hMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("hPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = hMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = "0";
-      }
-      if(hMRP.SheduledReceipts[i]!=0){
-        document.getElementById("hScheduledReceipts"+(i+1)).value = hMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("hScheduledReceipts"+(i+1)).value = "";
-      }
+      tableLetters.forEach(function(letter){
+        tableRows.forEach(function(row){
+          eval('var tableMRP = ' + letter + 'MRP.' + row)
+          if(tableMRP[i]!=0){
+            document.getElementById(letter + row +(i+1)).innerHTML = tableMRP[i]
+          }
+          else {
+          document.getElementById(letter + row +(i+1)).innerHTML = "";
+          }
+        })
+      })
     }
   }
 }
@@ -349,32 +201,32 @@ function FillOrders(name, json){
   switch(name){
     case "wheel":
       for(var i = 0; i < 10; i++){
-        json.orders[i] = document.getElementById("wScheduledReceipts"+(i+1)).value
-        if(document.getElementById("wScheduledReceipts"+(i+1)).value == ''){
+        json.orders[i] = document.getElementById("wSheduledReceipts"+(i+1)).value
+        if(document.getElementById("wSheduledReceipts"+(i+1)).value == ''){
           json.orders[i] = 0
         }
       }
       break;
     case "box":
       for(var i = 0; i < 10; i++){
-        json.orders[i] = document.getElementById("bScheduledReceipts"+(i+1)).value
-        if(document.getElementById("bScheduledReceipts"+(i+1)).value == ''){
+        json.orders[i] = document.getElementById("bSheduledReceipts"+(i+1)).value
+        if(document.getElementById("bSheduledReceipts"+(i+1)).value == ''){
           json.orders[i] = 0
         }
       }
       break;
     case "cage":
       for(var i = 0; i < 10; i++){
-        json.orders[i] = document.getElementById("cScheduledReceipts"+(i+1)).value
-        if(document.getElementById("cScheduledReceipts"+(i+1)).value == ''){
+        json.orders[i] = document.getElementById("cSheduledReceipts"+(i+1)).value
+        if(document.getElementById("cSheduledReceipts"+(i+1)).value == ''){
           json.orders[i] = 0
         }
       }
       break;
     case "handles":
       for(var i = 0; i < 10; i++){
-        json.Orders[i] = document.getElementById("hScheduledReceipts"+(i+1)).value
-        if(document.getElementById("hScheduledReceipts"+(i+1)).value == ''){
+        json.Orders[i] = document.getElementById("hSheduledReceipts"+(i+1)).value
+        if(document.getElementById("hSheduledReceipts"+(i+1)).value == ''){
           json.Orders[i] = 0
         }
       }
