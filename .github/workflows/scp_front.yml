@@ -3,7 +3,7 @@ name: scp files
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   push_front:
