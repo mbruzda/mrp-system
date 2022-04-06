@@ -24,3 +24,11 @@ docker run -it -d -p 80:80 -p 443:443 mrocin/mrp-api --name mrp
 ### Aleksander Gorazda
 
 ### Arkadiusz Kaproń
+
+
+### Kryteria oceny
+
+- Bogactwo funkcjonalnosci
+- User friendly design
+- Zaawansowanie technologiczne / architektura
+- Poprawnosc dzialania algorytmu
