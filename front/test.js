@@ -18,14 +18,14 @@ window.addEventListener("load", function () {
 
 function sendData(){
     const numInputs = document.querySelectorAll('input[type=number]')
+    numInputs.forEach(changeValue) 
+    
+    function changeValue(input){
+      if(input.value == ""){
+        input.value = 0
+      }
+    }
 
-    numInputs.forEach(function(input) {
-      input.addEventListener('change', function(e) {
-        if (e.target.value == '') {
-          e.target.value = 0
-        }
-      })
-    })
     wMRP = 0
     bMRP = 0
     cMRP = 0
@@ -66,9 +66,9 @@ function sendData(){
       if (this.readyState === this.DONE) {
         try{
           result = toCamel(JSON.parse(this.response))
-          result = JSON.stringify(result)
+          
         
-          console.log(JSON.stringify(result.replace(/["]/g,"'")))
+           //console.log(JSON.stringify(result.replace(/["]/g,"'")))
         }catch{
           console.log(this.response)
           //Here will be code that will make popup with response message
@@ -78,8 +78,12 @@ function sendData(){
         xhrW.withCredentials = false;
         xhrW.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("wTime").value+'/'+document.getElementById("wLotSize").value+'/1/'+document.getElementById("wInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrW.setRequestHeader('content-type', 'application/json')
+
+        var wheelResult = result
         
-        xhrW.send(JSON.stringify(result.replace(/["]/g,"'")))
+        FillOrders("wheel", wheelResult)
+        wheelResult = JSON.stringify(wheelResult)
+        xhrW.send(JSON.stringify(wheelResult.replace(/["]/g,"'")))
 
         xhrW.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -95,7 +99,11 @@ function sendData(){
         xhrB.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("bTime").value+'/'+document.getElementById("bLotSize").value+'/1/'+document.getElementById("bInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrB.setRequestHeader('content-type', 'application/json')
 
-        xhrB.send(JSON.stringify(result.replace(/["]/g,"'")))
+        var boxResult = result
+
+        FillOrders("box", boxResult)
+        boxResult = JSON.stringify(boxResult)
+        xhrB.send(JSON.stringify(boxResult.replace(/["]/g,"'")))
 
         xhrB.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -111,7 +119,10 @@ function sendData(){
         xhrC.open('POST', ApiURL+'/api/GetMRPlvl1Table/'+document.getElementById("cTime").value+'/'+document.getElementById("cLotSize").value+'/1/'+document.getElementById("cInventory").value+'/' + document.getElementById("auto").checked, true)
         xhrC.setRequestHeader('content-type', 'application/json')
 
-        xhrC.send(JSON.stringify(result.replace(/["]/g,"'")))
+        var cageResult = result
+        FillOrders("cage", cageResult)
+        cageResult = JSON.stringify(cageResult)
+        xhrC.send(JSON.stringify(cageResult.replace(/["]/g,"'")))
 
         xhrC.addEventListener('readystatechange', function () {
           if (this.readyState === this.DONE) {
@@ -123,10 +134,10 @@ function sendData(){
               xhrH.withCredentials = false;
               xhrH.open('POST', ApiURL+'/api/GetMRPlvl2Table/'+document.getElementById("hTime").value+'/'+document.getElementById("hLotSize").value+'/2/'+document.getElementById("hInventory").value+'/' + document.getElementById("auto").checked, true)
               xhrH.setRequestHeader('content-type', 'application/json')
-
-              var mrp2 = '"'+(JSON.stringify(cMRP)).replace(/["]/g,"'")+'"'
+              var handlesResult = cMRP
+              FillOrders("handles", handlesResult)
+              var mrp2 = '"'+(JSON.stringify(handlesResult)).replace(/["]/g,"'")+'"'
               xhrH.send(mrp2)
-              console.log(mrp2)
 
               xhrH.addEventListener('readystatechange', function () {
                 if (this.readyState === this.DONE) {
@@ -152,12 +163,8 @@ function ShowResult() {
 
   if(wMRP != 0 && bMRP != 0 && cMRP != 0 && hMRP != 0){
     clearInterval(interval)
-    result = JSON.parse(result)
-    //console.log(result)
-    //console.log(wMRP)
-    //console.log(bMRP)
-    console.log(cMRP)
-    console.log(hMRP)
+    var tableLetters = ["w", "b", "c", "h"]
+    var tableRows = ["GrossRequirements", "NetRequirements", "PlannedReceipt", "PlannedRelease", "ProjectedOnHand", "SheduledReceipts"]
     for(var i =0; i<10; i++){
       if(result.salesForecast[i]!=0){
         document.getElementById("saleTable"+(i+1)).innerHTML = result.salesForecast[i]
@@ -175,156 +182,72 @@ function ShowResult() {
       }
       document.getElementById("inventoryTable"+(i+1)).innerHTML = result.inventory[i]
 
-
-      if(wMRP.GrossRequirements[i]!=0){
-        document.getElementById("wGrossRequirements"+(i+1)).innerHTML = wMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("wGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.NetRequirements[i]!=0){
-        document.getElementById("wNetRequirements"+(i+1)).innerHTML = wMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("wNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.PlannedReceipt[i]!=0){
-        document.getElementById("wPlannedReceipts"+(i+1)).innerHTML = wMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("wPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.PlannedRelease[i]!=0){
-        document.getElementById("wPlannedRelease"+(i+1)).innerHTML = wMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("wPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = wMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("wProjectedOnHand"+(i+1)).innerHTML = "";
-      }
-      if(wMRP.SheduledReceipts[i]!=0){
-        document.getElementById("wScheduledReceipts"+(i+1)).innerHTML = wMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("wScheduledReceipts"+(i+1)).innerHTML = "";
-      }
-
-
-      if(bMRP.GrossRequirements[i]!=0){
-        document.getElementById("bGrossRequirements"+(i+1)).innerHTML = bMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("bGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.NetRequirements[i]!=0){
-        document.getElementById("bNetRequirements"+(i+1)).innerHTML = bMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("bNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.PlannedReceipt[i]!=0){
-        document.getElementById("bPlannedReceipts"+(i+1)).innerHTML = bMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("bPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.PlannedRelease[i]!=0){
-        document.getElementById("bPlannedRelease"+(i+1)).innerHTML = bMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("bPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = bMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("bProjectedOnHand"+(i+1)).innerHTML = "";
-      }
-      if(bMRP.SheduledReceipts[i]!=0){
-        document.getElementById("bScheduledReceipts"+(i+1)).innerHTML = bMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("bScheduledReceipts"+(i+1)).innerHTML = "";
-      }
-
-      if(cMRP.GrossRequirements[i]!=0){
-        document.getElementById("cGrossRequirements"+(i+1)).innerHTML = cMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("cGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.NetRequirements[i]!=0){
-        document.getElementById("cNetRequirements"+(i+1)).innerHTML = cMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("cNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.PlannedReceipt[i]!=0){
-        document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = cMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("cPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.PlannedRelease[i]!=0){
-        document.getElementById("cPlannedRelease"+(i+1)).innerHTML = cMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("cPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = cMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("cProjectedOnHand"+(i+1)).innerHTML = "";
-      }
-      if(cMRP.SheduledReceipts[i]!=0){
-        document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = cMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("cScheduledReceipts"+(i+1)).innerHTML = "";
-      }
-
-      if(hMRP.GrossRequirements[i]!=0){
-        document.getElementById("hGrossRequirements"+(i+1)).innerHTML = hMRP.GrossRequirements[i]
-      }
-      else {
-      document.getElementById("hGrossRequirements"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.NetRequirements[i]!=0){
-        document.getElementById("hNetRequirements"+(i+1)).innerHTML = hMRP.NetRequirements[i]
-      }
-      else {
-      document.getElementById("hNetRequirements"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.PlannedReceipt[i]!=0){
-        document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = hMRP.PlannedReceipt[i]
-      }
-      else {
-      document.getElementById("hPlannedReceipts"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.PlannedRelease[i]!=0){
-        document.getElementById("hPlannedRelease"+(i+1)).innerHTML = hMRP.PlannedRelease[i]
-      }
-      else {
-      document.getElementById("hPlannedRelease"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.ProjectedOnHand[i]!=0){
-        document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = hMRP.ProjectedOnHand[i]
-      }
-      else {
-      document.getElementById("hProjectedOnHand"+(i+1)).innerHTML = "";
-      }
-      if(hMRP.SheduledReceipts[i]!=0){
-        document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = hMRP.SheduledReceipts[i]
-      }
-      else {
-      document.getElementById("hScheduledReceipts"+(i+1)).innerHTML = "";
-      }
+      tableLetters.forEach(function(letter){
+        tableRows.forEach(function(row){
+          eval('var tableMRP = ' + letter + 'MRP.' + row)
+          if(row == "SheduledReceipts"){
+            if(tableMRP[i]!=0){
+              document.getElementById(letter + row +(i+1)).value = tableMRP[i]
+            }
+            else {
+            document.getElementById(letter + row +(i+1)).value = 0;
+            }
+          }
+          else{
+            if(tableMRP[i]!=0){
+              document.getElementById(letter + row +(i+1)).innerHTML = tableMRP[i]
+            }
+            else {
+              if(row = "ProjectedOnHand"){
+                document.getElementById(letter + row +(i+1)).innerHTML = "0";
+              }
+              else{
+                document.getElementById(letter + row +(i+1)).innerHTML = "";
+              }
+              
+            }
+          }
+          
+        })
+      })
     }
+  }
+}
+
+function FillOrders(name, json){
+  switch(name){
+    case "wheel":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("wSheduledReceipts"+(i+1)).value
+        if(document.getElementById("wSheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "box":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("bSheduledReceipts"+(i+1)).value
+        if(document.getElementById("bSheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "cage":
+      for(var i = 0; i < 10; i++){
+        json.orders[i] = document.getElementById("cSheduledReceipts"+(i+1)).value
+        if(document.getElementById("cSheduledReceipts"+(i+1)).value == ''){
+          json.orders[i] = 0
+        }
+      }
+      break;
+    case "handles":
+      for(var i = 0; i < 10; i++){
+        json.Orders[i] = document.getElementById("hSheduledReceipts"+(i+1)).value
+        if(document.getElementById("hSheduledReceipts"+(i+1)).value == ''){
+          json.Orders[i] = 0
+        }
+      }
+      break;
   }
 }
 

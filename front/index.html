@@ -97,6 +97,7 @@
                 <td><input class="input is-small" id="production8"  min="0" oninput="validity.valid||(value='0');" value="5"/></td>
                 <td><input class="input is-small" id="production9"  min="0" oninput="validity.valid||(value='0');" value="5"/></td>
                 <td><input class="input is-small" id="production10"  min="0" oninput="validity.valid||(value='0');" value="5"/></td>
+
             </tr>
             </tbody>
         </table>
@@ -132,19 +133,21 @@
             <tbody>
             <tr>
                 <th>Czas realizacji</th>
-                <td><input class="input is-small" id="time"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
-                <td><input class="input is-small" id="wTime"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
-                <td><input class="input is-small" id="bTime"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
-                <td><input class="input is-small" id="cTime"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
-                <td><input class="input is-small" id="hTime"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+
+                <td><input class="input is-small" id="time" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+                <td><input class="input is-small" id="wTime" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+                <td><input class="input is-small" id="bTime" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+                <td><input class="input is-small" id="cTime" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+                <td><input class="input is-small" id="hTime" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
             </tr>
             <tr>
                 <th>Wielkość partii</th>
                 <td></td>
-                <td><input class="input is-small" id="wLotSize"  min="1" oninput="validity.valid||(value='1');" value="7"/></td>
-                <td><input class="input is-small" id="bLotSize"  min="1" oninput="validity.valid||(value='1');" value="10"/></td>
-                <td><input class="input is-small" id="cLotSize"  min="1" oninput="validity.valid||(value='1');" value="6"/></td>
-                <td><input class="input is-small" id="hLotSize"  min="1" oninput="validity.valid||(value='1');" value="16"/></td>
+
+                <td><input class="input is-small" id="wLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="7"/></td>
+                <td><input class="input is-small" id="bLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="10"/></td>
+                <td><input class="input is-small" id="cLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="6"/></td>
+                <td><input class="input is-small" id="hLotSize" type="number" min="1" oninput="validity.valid||(value='1');" value="16"/></td>
             </tr>
             <tr>
                 <th>Poziom BOM</th>
@@ -156,11 +159,11 @@
             </tr>
             <tr>
                 <th>Na składzie</th>
-                <td><input class="input is-small" id="inventory"  min="0" oninput="validity.valid||(value='0');" value="1"/></td>
-                <td><input class="input is-small" id="wInventory"  min="0" oninput="validity.valid||(value='0');" value="3"/></td>
-                <td><input class="input is-small" id="bInventory"  min="0" oninput="validity.valid||(value='0');" value="7"/></td>
-                <td><input class="input is-small" id="cInventory"  min="0" oninput="validity.valid||(value='0');" value="0"/></td>
-                <td><input class="input is-small" id="hInventory"  min="0" oninput="validity.valid||(value='0');" value="2"/></td>
+                <td><input class="input is-small" id="inventory" type="number" min="0" oninput="validity.valid||(value='0');" value="1"/></td>
+                <td><input class="input is-small" id="wInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="3"/></td>
+                <td><input class="input is-small" id="bInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="7"/></td>
+                <td><input class="input is-small" id="cInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="0"/></td>
+                <td><input class="input is-small" id="hInventory" type="number" min="0" oninput="validity.valid||(value='0');" value="2"/></td>
             </tr>
             <tr>
                 <th>Auto wypełnianie</th>
@@ -260,16 +263,16 @@
         </tr>
         <tr>
             <th>Planowane przyjęcia</th>
-            <td><p id="wScheduledReceipts1"></p></td>
-            <td><p id="wScheduledReceipts2"></p></td>
-            <td><p id="wScheduledReceipts3"></p></td>
-            <td><p id="wScheduledReceipts4"></p></td>
-            <td><p id="wScheduledReceipts5"></p></td>
-            <td><p id="wScheduledReceipts6"></p></td>
-            <td><p id="wScheduledReceipts7"></p></td>
-            <td><p id="wScheduledReceipts8"></p></td>
-            <td><p id="wScheduledReceipts9"></p></td>
-            <td><p id="wScheduledReceipts10"></p></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts1"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts2"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts3"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts4"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts5"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts6"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts7"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts8"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts9"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="wSheduledReceipts10"/></td>
         </tr>
         <tr>
             <th>Przewidywane na stanie</th>
@@ -299,16 +302,16 @@
         </tr>
         <tr>
             <th>Planowane zamówienia</th>
-            <td><p id="wPlannedReceipts1"></p></td>
-            <td><p id="wPlannedReceipts2"></p></td>
-            <td><p id="wPlannedReceipts3"></p></td>
-            <td><p id="wPlannedReceipts4"></p></td>
-            <td><p id="wPlannedReceipts5"></p></td>
-            <td><p id="wPlannedReceipts6"></p></td>
-            <td><p id="wPlannedReceipts7"></p></td>
-            <td><p id="wPlannedReceipts8"></p></td>
-            <td><p id="wPlannedReceipts9"></p></td>
-            <td><p id="wPlannedReceipts10"></p></td>
+            <td><p id="wPlannedReceipt1"></p></td>
+            <td><p id="wPlannedReceipt2"></p></td>
+            <td><p id="wPlannedReceipt3"></p></td>
+            <td><p id="wPlannedReceipt4"></p></td>
+            <td><p id="wPlannedReceipt5"></p></td>
+            <td><p id="wPlannedReceipt6"></p></td>
+            <td><p id="wPlannedReceipt7"></p></td>
+            <td><p id="wPlannedReceipt8"></p></td>
+            <td><p id="wPlannedReceipt9"></p></td>
+            <td><p id="wPlannedReceipt10"></p></td>
         </tr>
         <tr>
             <th>Planowane przyjęcie zamówień</th>
@@ -357,16 +360,16 @@
         </tr>
         <tr>
             <th>Planowane przyjęcia</th>
-            <td><p id="bScheduledReceipts1"></p></td>
-            <td><p id="bScheduledReceipts2"></p></td>
-            <td><p id="bScheduledReceipts3"></p></td>
-            <td><p id="bScheduledReceipts4"></p></td>
-            <td><p id="bScheduledReceipts5"></p></td>
-            <td><p id="bScheduledReceipts6"></p></td>
-            <td><p id="bScheduledReceipts7"></p></td>
-            <td><p id="bScheduledReceipts8"></p></td>
-            <td><p id="bScheduledReceipts9"></p></td>
-            <td><p id="bScheduledReceipts10"></p></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts1"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts2"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts3"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts4"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts5"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts6"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts7"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts8"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts9"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="bSheduledReceipts10"/></td>
         </tr>
         <tr>
             <th>Przewidywane na stanie</th>
@@ -396,16 +399,16 @@
         </tr>
         <tr>
             <th>Planowane zamówienia</th>
-            <td><p id="bPlannedReceipts1"></p></td>
-            <td><p id="bPlannedReceipts2"></p></td>
-            <td><p id="bPlannedReceipts3"></p></td>
-            <td><p id="bPlannedReceipts4"></p></td>
-            <td><p id="bPlannedReceipts5"></p></td>
-            <td><p id="bPlannedReceipts6"></p></td>
-            <td><p id="bPlannedReceipts7"></p></td>
-            <td><p id="bPlannedReceipts8"></p></td>
-            <td><p id="bPlannedReceipts9"></p></td>
-            <td><p id="bPlannedReceipts10"></p></td>
+            <td><p id="bPlannedReceipt1"></p></td>
+            <td><p id="bPlannedReceipt2"></p></td>
+            <td><p id="bPlannedReceipt3"></p></td>
+            <td><p id="bPlannedReceipt4"></p></td>
+            <td><p id="bPlannedReceipt5"></p></td>
+            <td><p id="bPlannedReceipt6"></p></td>
+            <td><p id="bPlannedReceipt7"></p></td>
+            <td><p id="bPlannedReceipt8"></p></td>
+            <td><p id="bPlannedReceipt9"></p></td>
+            <td><p id="bPlannedReceipt10"></p></td>
         </tr>
         <tr>
             <th>Planowane przyjęcie zamówień</th>
@@ -454,16 +457,16 @@
         </tr>
         <tr>
             <th>Planowane przyjęcia</th>
-            <td><p id="cScheduledReceipts1"></p></td>
-            <td><p id="cScheduledReceipts2"></p></td>
-            <td><p id="cScheduledReceipts3"></p></td>
-            <td><p id="cScheduledReceipts4"></p></td>
-            <td><p id="cScheduledReceipts5"></p></td>
-            <td><p id="cScheduledReceipts6"></p></td>
-            <td><p id="cScheduledReceipts7"></p></td>
-            <td><p id="cScheduledReceipts8"></p></td>
-            <td><p id="cScheduledReceipts9"></p></td>
-            <td><p id="cScheduledReceipts10"></p></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts1"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts2"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts3"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts4"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts5"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts6"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts7"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts8"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts9"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="cSheduledReceipts10"/></td>
         </tr>
         <tr>
             <th>Przewidywane na stanie</th>
@@ -493,16 +496,16 @@
         </tr>
         <tr>
             <th>Planowane zamówienia</th>
-            <td><p id="cPlannedReceipts1"></p></td>
-            <td><p id="cPlannedReceipts2"></p></td>
-            <td><p id="cPlannedReceipts3"></p></td>
-            <td><p id="cPlannedReceipts4"></p></td>
-            <td><p id="cPlannedReceipts5"></p></td>
-            <td><p id="cPlannedReceipts6"></p></td>
-            <td><p id="cPlannedReceipts7"></p></td>
-            <td><p id="cPlannedReceipts8"></p></td>
-            <td><p id="cPlannedReceipts9"></p></td>
-            <td><p id="cPlannedReceipts10"></p></td>
+            <td><p id="cPlannedReceipt1"></p></td>
+            <td><p id="cPlannedReceipt2"></p></td>
+            <td><p id="cPlannedReceipt3"></p></td>
+            <td><p id="cPlannedReceipt4"></p></td>
+            <td><p id="cPlannedReceipt5"></p></td>
+            <td><p id="cPlannedReceipt6"></p></td>
+            <td><p id="cPlannedReceipt7"></p></td>
+            <td><p id="cPlannedReceipt8"></p></td>
+            <td><p id="cPlannedReceipt9"></p></td>
+            <td><p id="cPlannedReceipt10"></p></td>
         </tr>
         <tr>
             <th>Planowane przyjęcie zamówień</th>
@@ -551,16 +554,16 @@
         </tr>
         <tr>
             <th>Planowane przyjęcia</th>
-            <td><p id="hScheduledReceipts1"></p></td>
-            <td><p id="hScheduledReceipts2"></p></td>
-            <td><p id="hScheduledReceipts3"></p></td>
-            <td><p id="hScheduledReceipts4"></p></td>
-            <td><p id="hScheduledReceipts5"></p></td>
-            <td><p id="hScheduledReceipts6"></p></td>
-            <td><p id="hScheduledReceipts7"></p></td>
-            <td><p id="hScheduledReceipts8"></p></td>
-            <td><p id="hScheduledReceipts9"></p></td>
-            <td><p id="hScheduledReceipts10"></p></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts1"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts2"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts3"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts4"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts5"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts6"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts7"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts8"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts9"/></td>
+            <td><input class="input is-small" type="number" min="0" oninput="validity.valid||(value='0');" value="0" id="hSheduledReceipts10"/></td>
         </tr>
         <tr>
             <th>Przewidywane na stanie</th>
@@ -590,16 +593,16 @@
         </tr>
         <tr>
             <th>Planowane zamówienia</th>
-            <td><p id="hPlannedReceipts1"></p></td>
-            <td><p id="hPlannedReceipts2"></p></td>
-            <td><p id="hPlannedReceipts3"></p></td>
-            <td><p id="hPlannedReceipts4"></p></td>
-            <td><p id="hPlannedReceipts5"></p></td>
-            <td><p id="hPlannedReceipts6"></p></td>
-            <td><p id="hPlannedReceipts7"></p></td>
-            <td><p id="hPlannedReceipts8"></p></td>
-            <td><p id="hPlannedReceipts9"></p></td>
-            <td><p id="hPlannedReceipts10"></p></td>
+            <td><p id="hPlannedReceipt1"></p></td>
+            <td><p id="hPlannedReceipt2"></p></td>
+            <td><p id="hPlannedReceipt3"></p></td>
+            <td><p id="hPlannedReceipt4"></p></td>
+            <td><p id="hPlannedReceipt5"></p></td>
+            <td><p id="hPlannedReceipt6"></p></td>
+            <td><p id="hPlannedReceipt7"></p></td>
+            <td><p id="hPlannedReceipt8"></p></td>
+            <td><p id="hPlannedReceipt9"></p></td>
+            <td><p id="hPlannedReceipt10"></p></td>
         </tr>
         <tr>
             <th>Planowane przyjęcie zamówień</th>
