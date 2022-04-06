@@ -4,17 +4,22 @@
 
 table {
     border-collapse: collapse;
+    width: 90%;
 }
 tr,
 td {
     border: 1px solid black;
     flex: auto;
-    width: 70px;
+    width: auto;
     text-align: center;
     height: 30px;
 }
+th {
+    max-width: 130px;
+}
 input {
     text-align: center;
+    min-width: 30px
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -32,8 +37,9 @@ input::-webkit-inner-spin-button {
     text-align: center;
 }
 .button_css {
-    width: 100%;  
+    width: 90%;  
     height: 50px;
+    margin-left: 5%;
     }  
 
     .loading {
